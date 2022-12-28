@@ -1,0 +1,229 @@
+<head>
+<style>
+code {
+overflow-x: auto;
+white-space: pre-wrap;
+white-space: -moz-pre-wrap;
+white-space: -pre-wrap;
+white-space: -o-pre-wrap;
+word-wrap: break-word;
+}
+textarea {
+resize: vertical;
+background:#fff7;
+width:100%;
+border:0; 
+padding:10px;
+box-shadow: 5px 5px 20px 6px #6f7aed;
+border-radius: 6px;
+height:150px
+}
+code{
+font-family: monospace; 
+font-size:16px;
+}
+button{
+padding:10px 30px 10px 30px;
+background-color:#fffa;
+border:1px;
+border-radius: 8px;
+font-size:16px
+}
+label.Code{
+font-family: monospace; 
+font-size:14px;
+padding:0 0 0 17px;
+text-align: left;
+}
+h1{
+text-align: center
+}
+
+
+
+</style>
+
+<style>
+:root { --width: 100px; } 
+
+@keyframes color-change {
+  0% {background-color: #e0efff}
+  50% {background-color: #cbe4fd}
+  100% {background-color: #e0efff}
+}
+
+div.container{
+margin-left: 45px;
+}
+div.pane{
+max-width:200px;
+float:left;
+text-align: center;
+height:100%;
+background-color:#e0efff;
+position:fixed;
+overflow:auto;
+display:block;
+text-align:left;
+left: 0;
+top: 0;
+animation-name: color-change;
+animation-duration: 16s;
+animation-iteration-count: infinite;
+animation-timing-function: ease-out;
+}
+
+button.menu-close{
+background-color:#0000;
+left: 0;
+top: 0;
+border-radius: 0px;
+font-size:16px;
+padding:10px 10px 10px 10px;
+width:100%;
+text-align:left;
+}
+button.pane-button{
+background-color:#0000;
+left: 0;
+top: 0;
+border-radius: 0px;
+font-size:16px;
+padding:10px 10px 10px 10px;
+width:100%;
+text-align:left;
+font-size:16px;
+}
+div.pane-content{
+padding-top:8px;
+display: none;
+}
+button.menu-close:hover,button.pane-button:hover{
+background:gray
+}
+
+@media (max-width: 1026px) {
+    #fadeshow1 { display: none; }
+}
+</style>
+
+
+<title>Text To Code AI Generater</title>
+<link rel="stylesheet"     href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+
+<body style="background: linear-gradient(#cfcfff,#c0c0f0);">
+
+<!-- Sidebar -->
+<div class="pane" id="pane2">
+  <button class="menu-close" onclick="
+  if($('#main').hasClass('container-collaspe')){
+  $('#main').removeClass('container-collaspe')
+  $('#pane2').animate({width: '200px'}, {
+        duration: 550,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+  $('#main').animate({marginLeft: '225px'}, {
+        duration: 550,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+  $('#pane-content').slideDown(500);
+  }else{
+  $('#pane-content').slideUp(500);
+  $('#pane2').animate({width: '35px'}, {
+        duration: 550,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+  $('#main').animate({marginLeft: '45px'}, {
+        duration: 550,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+  $('#main').addClass('container-collaspe');
+  }">&#9776;</button>
+  <div class="pane-content" id="pane-content">
+  <button class="pane-button">link1</button>
+  <button class="pane-button">link2</button>
+  <button class="pane-button">link3</button>
+  <button class="pane-button">link4</button>
+  <button class="pane-button">link5</button>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div id="main" class="container container-collaspe">
+<h1>Text To Code AI Generater</h1>
+<div id="top" style="padding-bottom:10px">
+<label style="color:#000">Api Key= </label>
+<input type="textbox" id="apikey" placeholder="sk-apikey">
+</div>
+
+<textarea cols="40" rows="5" type="textbox" id="input" placeholder="/*javascript
+log hello world
+*/"></textarea>
+
+<div id="centre" style="text-align: center;padding: 20px 0 0 0">
+<button onclick="submit2()" style="">Generate</button>
+</div>
+
+<pre style="background-color:#fff8;border-radius: 6px;">
+<br><label class="Code">Result: </label>
+<code id="result" style="background-color:#fff0"></code>
+</pre>
+
+</div>
+</body>
+
+<link rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/default.min.css">
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
+
+<script>
+function submit2(){
+sendRequest(document.getElementById("apikey").value)
+};
+
+function sendRequest(apikey){
+var data = JSON.stringify({
+  "model": "code-davinci-002",
+  "prompt": document.getElementById("input").value,
+  "temperature": 0,
+  "max_tokens": 300,
+  "top_p": 1,
+  "frequency_penalty": 0,
+  "presence_penalty": 0
+});
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "https://api.openai.com/v1/completions");
+
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.setRequestHeader("Authorization", "Bearer "+apikey);
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+     document.getElementById("result").innerHTML = hljs.highlightAuto(JSON.parse(xhr.responseText).choices[0].text.replace(/\\\n/g,"\n")).value
+   }};
+
+xhr.send(data);
+}
+
+document.getElementById("result").innerText ="console.log('Hello World!')";
+hljs.highlightAll();
+</script>
+
+
