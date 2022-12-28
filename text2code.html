@@ -39,7 +39,7 @@ text-align: left;
 }
 h1{
 text-align: center;
-font-size:1em;
+font-size:2em;
 }
 
 
@@ -47,8 +47,6 @@ font-size:1em;
 </style>
 
 <style>
-:root { --width: 100px; } 
-
 @keyframes color-change {
   0% {background-color: #e0efff}
   50% {background-color: #cbe4fd}
@@ -56,7 +54,7 @@ font-size:1em;
 }
 
 div.container{
-margin-left: 45px;
+margin-left: 55px;
 }
 div.pane{
 max-width:200px;
@@ -91,7 +89,7 @@ background-color:#0000;
 left: 0;
 top: 0;
 border-radius: 0px;
-font-size:1.5em;
+font-size:1em;
 padding:10px 10px 10px 10px;
 width:100%;
 text-align:left;
@@ -125,13 +123,13 @@ background:gray
   <button class="menu-close" onclick="
   if($('#main').hasClass('container-collaspe')){
   $('#main').removeClass('container-collaspe')
-  $('#pane2').animate({width: '200px'}, {
+  $('#pane2').animate({width: '250px'}, {
         duration: 550,
         specialEasing: {
             width: 'swing'
         }
     });
-  $('#main').animate({marginLeft: '225px'}, {
+  $('#main').animate({marginLeft: '255px'}, {
         duration: 550,
         specialEasing: {
             width: 'swing'
@@ -140,13 +138,13 @@ background:gray
   $('#pane-content').slideDown(500);
   }else{
   $('#pane-content').slideUp(500);
-  $('#pane2').animate({width: '35px'}, {
+  $('#pane2').animate({width: '45px'}, {
         duration: 550,
         specialEasing: {
             width: 'swing'
         }
     });
-  $('#main').animate({marginLeft: '45px'}, {
+  $('#main').animate({marginLeft: '50px'}, {
         duration: 550,
         specialEasing: {
             width: 'swing'
