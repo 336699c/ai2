@@ -9,9 +9,10 @@ function httpGet(theUrl, callback)
     xmlHttp.send(null);
 }
 
-httpGet("/data/pane.json",e=>{
+httpGet("/ai2/data/panedata.json",e=>{
   e= JSON.parse(e);
 e.forEach((f,i)=>{
 document.getElementById("pane-button-id"+i).innerHTML=`<a href="/`+f+`">`+f+`</a> `
 })
 })
+
