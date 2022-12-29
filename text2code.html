@@ -104,11 +104,6 @@ background:gray
 <!-- Content -->
 <div id="main" class="container container-collaspe">
 <h1>Text To Code AI Generater</h1>
-<div id="top" style="padding-bottom:10px">
-<label style="color:#000">Api Key= </label>
-<input type="textbox" id="apikey" placeholder="sk-apikey">
-</div>
-
 <textarea cols="40" rows="5" type="textbox" id="input" placeholder="/*javascript
 log hello world
 */"></textarea>
@@ -126,11 +121,11 @@ log hello world
 </body>
 
 <script>
-function submit2(){
-sendRequest(document.getElementById("apikey").value)
-};
+function getAPIKey(){
+return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0].split("=")[1];
+}
 
-function sendRequest(apikey){
+function submit2(){
 var data = JSON.stringify({
   "model": "code-davinci-002",
   "prompt": document.getElementById("input").value,
@@ -145,7 +140,7 @@ var xhr = new XMLHttpRequest();
 xhr.open("POST", "https://api.openai.com/v1/completions");
 
 xhr.setRequestHeader("Content-Type", "application/json");
-xhr.setRequestHeader("Authorization", "Bearer "+apikey);
+xhr.setRequestHeader("Authorization", "Bearer "+getAPIKey());
 
 xhr.onreadystatechange = function () {
    if (xhr.readyState === 4) {
