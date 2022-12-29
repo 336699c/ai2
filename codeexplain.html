@@ -70,6 +70,9 @@ background:gray
 
 <div id="centre" style="text-align: center;padding: 20px 0 0 0">
 <button onclick="submit2()" class="generate">Generate</button>
+
+<input type="file" id="file-selector" style="padding: 0 25px 0 25px">
+
 </div>
 
 <pre style="background-color:#fff8;border-radius: 6px;">
@@ -109,6 +112,26 @@ $("#spin").hide();
 document.getElementById("result").innerText ="";
 hljs.highlightAll();
 </script>
+
+<script>
+/* Base64Decode@base64.js | https://gist.github.com/chrisveness/e121cffb51481bd1c142 | MIT */
+function Base64Decode(r) { if (!/^[a-z0-9+/]+={0,2}$/i.test(r) || r.length % 4 != 0) throw Error("Not base64 string"); for (var t, e, n, o, h, a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", i = [], f = 0; f < r.length; f += 4)t = (h = a.indexOf(r.charAt(f)) << 18 | a.indexOf(r.charAt(f + 1)) << 12 | (n = a.indexOf(r.charAt(f + 2))) << 6 | (o = a.indexOf(r.charAt(f + 3)))) >>> 16 & 255, e = h >>> 8 & 255, h = 255 & h, i[f / 4] = String.fromCharCode(t, e, h), 64 == o && (i[f / 4] = String.fromCharCode(t, e)), 64 == n && (i[f / 4] = String.fromCharCode(t)); return r = i.join("") }
+
+  const fileSelector = document.getElementById('file-selector');
+  fileSelector.addEventListener('change', (event) => {
+ var file = event.target.files[0];
+ 
+  const reader = new FileReader();
+  reader.addEventListener('load', (event) => {
+    var result = event.target.result?.split("base64,")[1];
+    result=Base64Decode(result);
+    console.log(result);
+    document.getElementById("input").value = result;
+  });
+  reader.readAsDataURL(file); 
+  });
+</script>
+
 <link rel="stylesheet"
       href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/default.min.css">
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
