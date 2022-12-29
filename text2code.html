@@ -85,7 +85,7 @@ log hello world
 
 <script>
 function getAPIKey(){
-return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0].split("=")[1];
+return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0]?.split("=")[1];
 }
 
 function submit2(){
