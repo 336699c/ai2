@@ -1,0 +1,139 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=2.75" />
+<style>
+h1{
+text-align: center;
+font-size:2em;
+}
+</style>
+
+<style>
+@keyframes color-change {
+  0% {background-color: #e0efff}
+  50% {background-color: #cbe4fd}
+  100% {background-color: #e0efff}
+}
+
+div.container{
+margin-left: 55px;
+}
+div.pane{
+max-width:250px;
+float:left;
+text-align: center;
+height:100%;
+background-color:#e0efff;
+position:fixed;
+overflow:auto;
+display:block;
+text-align:left;
+left: 0;
+top: 0;
+animation-name: color-change;
+animation-duration: 16s;
+animation-iteration-count: infinite;
+animation-timing-function: ease-out;
+}
+
+button.menu-close{
+background-color:#0000;
+left: 0;
+top: 0;
+border-radius: 0px;
+font-size:1.5em;
+padding:10px 10px 10px 10px;
+width:100%;
+text-align:left;
+}
+button.pane-button{
+background-color:#0000;
+left: 0;
+top: 0;
+border-radius: 0px;
+font-size:1em;
+padding:10px 10px 10px 10px;
+width:100%;
+text-align:left;
+}
+div.pane-content{
+padding-top:8px;
+display: none;
+}
+button.menu-close:hover,button.pane-button:hover{
+background:gray
+}
+
+</style>
+
+
+<title>Settings</title>
+<link rel="stylesheet"     href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+
+<body style="background: linear-gradient(#cfcfff,#c0c0f0);">
+
+<!-- Sidebar -->
+<div class="pane" id="pane2">
+  <button class="menu-close" onclick="
+  if($('#main').hasClass('container-collaspe')){
+  $('#main').removeClass('container-collaspe')
+  $('#pane2').animate({width: '250px'}, {
+        duration: 550,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+  $('#main').animate({marginLeft: '255px'}, {
+        duration: 550,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+  $('#pane-content').slideDown(500);
+  }else{
+  $('#pane-content').slideUp(500);
+  $('#pane2').animate({width: '45px'}, {
+        duration: 550,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+  $('#main').animate({marginLeft: '50px'}, {
+        duration: 550,
+        specialEasing: {
+            width: 'swing'
+        }
+    });
+  $('#main').addClass('container-collaspe');
+  }">&#9776;</button>
+  <div class="pane-content" id="pane-content">
+  <button class="pane-button">link1</button>
+  <button class="pane-button">link2</button>
+  <button class="pane-button">link3</button>
+  <button class="pane-button">link4</button>
+  <button class="pane-button">link5</button>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div id="main" class="container container-collaspe">
+<h1>Settings</h1>
+<div id="top" style="padding-bottom:10px">
+<label style="color:#000">Api Key= </label>
+<input type="textbox" id="apikey" placeholder="sk-apikey" style="width:200px">
+<button onclick="save()">Save</button>
+</div>
+
+</div>
+
+<script>
+function save(){
+document.cookie = `apikey=`+document.getElementById("apikey").value+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
+}
+</script>
+</body>
