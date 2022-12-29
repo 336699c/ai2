@@ -1,0 +1,101 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+code {
+overflow-x: auto;
+white-space: pre-wrap;
+white-space: -moz-pre-wrap;
+white-space: -pre-wrap;
+white-space: -o-pre-wrap;
+word-wrap: break-word;
+}
+textarea {
+resize: vertical;
+background:#fff7;
+width:100%;
+border:0; 
+padding:10px;
+box-shadow: 5px 5px 20px 6px #6f7aed;
+border-radius: 6px;
+height:150px;
+font-size:1em;
+}
+code{
+font-family: monospace; 
+font-size:1em;
+}
+button{
+padding:10px 30px 10px 30px;
+background-color:#fffa;
+border:1px;
+border-radius: 8px;
+font-size:1em;
+}
+label.Code{
+font-family: monospace; 
+font-size:1em;
+padding:0 0 0 17px;
+text-align: left;
+}
+h1{
+text-align: center;
+font-size:1.5em;
+}
+button.generate:hover{
+background:gray
+}
+</style>
+
+<link rel="stylesheet" href="/ai2/style/load.css"> 
+<link rel="stylesheet" href="/ai2/style/pane.css">
+<title>03 Text To Image AI Generater</title>
+<script src="/ai2/data/openai.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+
+<body style="background: linear-gradient(#cfcfff,#c0c0f0);">
+
+<!-- Sidebar -->
+<div class="pane" id="pane2"></div>
+
+
+<!-- Content -->
+<div id="main" class="container container-collaspe">
+<h1>Text To Image AI Generater</h1>
+<textarea cols="40" rows="5" type="textbox" id="input" placeholder="a white siamese cat"></textarea>
+
+<div id="centre" style="text-align: center;padding: 20px 0 0 0">
+<button onclick="submit2()" class="generate">Generate</button>
+</div>
+
+<pre style="background-color:#fff8;border-radius: 6px;">
+<br><label class="Code">Result: </label>
+
+<div class="loader" id="spin"></div>
+</pre>
+
+</div>
+</body>
+
+<script>
+function getAPIKey(){
+return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0]?.split("=")[1];
+}
+
+function submit2(){
+$("#result").slideUp(300);
+$("#spin").show();
+OpenAI.create({
+    "prompt": document.getElementById("input").value,
+    "n": 1,
+    "size": "512x512"
+  },getAPIKey(),(response,code)=>{
+document.getElementById("result").innerHTML = `<img src="`+JSON.parse(response)?.data[0]?.url+`" alt="AI Picture">`
+$("#result").slideDown(300);
+$("#spin").hide();
+})
+}
+</script>
+
