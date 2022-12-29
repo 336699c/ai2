@@ -46,6 +46,31 @@ background:gray
 }
 </style>
 
+<style>
+.loader {
+  display: none;
+  margin:0 auto;
+  border: 14px solid #fff3;
+  border-radius: 50%;
+  border-top: 16px solid #999;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 2s ease infinite; /* Safari */
+  animation: spin 2s ease infinite;
+}
+
+/* Safari */
+@keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+  
 <link rel="stylesheet" href="/ai2/style/pane.css">
 <title>01 Text To Code AI Generater</title>
 <link rel="stylesheet"     href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
@@ -115,6 +140,7 @@ log hello world
 <pre style="background-color:#fff8;border-radius: 6px;">
 <br><label class="Code">Result: </label>
 <code id="result" style="background-color:#fff0"></code>
+<div class="loader" id="spin"></div>
 </pre>
 
 </div>
@@ -126,6 +152,8 @@ return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0].split(
 }
 
 function submit2(){
+$("#result").slideUp(300);
+$("#spin").show();
 var data = JSON.stringify({
   "model": "code-davinci-002",
   "prompt": document.getElementById("input").value,
@@ -146,7 +174,9 @@ xhr.onreadystatechange = function () {
    if (xhr.readyState === 4) {
       console.log(xhr.status);
       console.log(xhr.responseText);
-     document.getElementById("result").innerHTML = hljs.highlightAuto(JSON.parse(xhr.responseText).choices[0].text.replace(/\\\n/g,"\n")).value
+     document.getElementById("result").innerHTML = hljs.highlightAuto(JSON.parse(xhr.responseText).choices[0].text.replace(/\\\n/g,"\n")).value;
+     $("#result").slideDown(300);
+     $("#spin").hide();
    }};
 
 xhr.send(data);
