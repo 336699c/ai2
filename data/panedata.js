@@ -33,7 +33,9 @@ document.getElementById("pane2").innerHTML=`
   $('#main').addClass('container-collaspe');
   }">&#9776;</button>
 
+
 <div class="pane-content" id="pane-content" style="display: none; top: 0px;">
+<a href="/ai2/"><button class="pane-button">Main Page :)</button></a>
 <a href="/ai2/text2code"><button class="pane-button">Generate Code</button></a>
 <a href="/ai2/codeexplain"><button class="pane-button">Explain Code</button></a>
 <a href="/ai2/settings"><button class="pane-button">Settings</button></a>
