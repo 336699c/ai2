@@ -46,6 +46,7 @@ background:gray
 }
 </style>
 
+<link rel="stylesheet" href="/ai2/style/load.css"> 
 <link rel="stylesheet" href="/ai2/style/pane.css">
 <title>02 Code Explain</title>
 <link rel="stylesheet"     href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
@@ -59,45 +60,6 @@ background:gray
 
 <!-- Sidebar -->
 <div class="pane" id="pane2">
-  <button class="menu-close" onclick="
-  if($('#main').hasClass('container-collaspe')){
-  $('#main').removeClass('container-collaspe')
-  $('#pane2').animate({width: '250px'}, {
-        duration: 550,
-        specialEasing: {
-            width: 'swing'
-        }
-    });
-  $('#main').animate({marginLeft: '255px'}, {
-        duration: 550,
-        specialEasing: {
-            width: 'swing'
-        }
-    });
-  $('#pane-content').slideDown(500);
-  }else{
-  $('#pane-content').slideUp(500);
-  $('#pane2').animate({width: '45px'}, {
-        duration: 550,
-        specialEasing: {
-            width: 'swing'
-        }
-    });
-  $('#main').animate({marginLeft: '50px'}, {
-        duration: 550,
-        specialEasing: {
-            width: 'swing'
-        }
-    });
-  $('#main').addClass('container-collaspe');
-  }">&#9776;</button>
-  <div class="pane-content" id="pane-content">
-  <button class="pane-button">link1</button>
-  <button class="pane-button">link2</button>
-  <button class="pane-button">link3</button>
-  <button class="pane-button">link4</button>
-  <button class="pane-button">link5</button>
-  </div>
 </div>
 
 
@@ -113,6 +75,7 @@ background:gray
 <pre style="background-color:#fff8;border-radius: 6px;">
 <br><label class="Code">Result: </label>
 <code id="result" style="background-color:#fff0"></code>
+<div class="loader" id="spin"></div>
 </pre>
 
 </div>
@@ -124,6 +87,8 @@ return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0].split(
 }
 
 function submit2(){
+$("#result").slideUp(300);
+$("#spin").show();
 var data = JSON.stringify({
   "model": "code-davinci-002",
   "prompt": document.getElementById("input").value,
@@ -145,7 +110,9 @@ xhr.onreadystatechange = function () {
    if (xhr.readyState === 4) {
       console.log(xhr.status);
       console.log(xhr.responseText);
-     document.getElementById("result").innerHTML = hljs.highlightAuto(JSON.parse(xhr.responseText).choices[0].text.replace(/\\\n/g,"\n")).value
+     document.getElementById("result").innerHTML = hljs.highlightAuto(JSON.parse(xhr.responseText).choices[0].text.replace(/\\\n/g,"\n")).value;
+     $("#result").slideDown(300);
+     $("#spin").hide();
    }};
 
 xhr.send(data);
