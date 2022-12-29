@@ -87,7 +87,7 @@ return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0]?.split
 function submit2(){
 $("#result").slideUp(300);
 $("#spin").show();
-OpenAI.create({
+OpenAI.dallepicture({
     "prompt": document.getElementById("input").value,
     "n": 1,
     "size": "512x512"
