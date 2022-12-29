@@ -1,1 +1,54 @@
+@keyframes color-change {
+  0% {background-color: #e0efff}
+  50% {background-color: #cbe4fd}
+  100% {background-color: #e0efff}
+}
 
+div.container{
+margin-left: 55px;
+}
+div.pane{
+max-width:250px;
+float:left;
+text-align: center;
+height:100%;
+background-color:#e0efff;
+position:fixed;
+overflow:auto;
+display:block;
+text-align:left;
+left: 0;
+top: 0;
+animation-name: color-change;
+animation-duration: 16s;
+animation-iteration-count: infinite;
+animation-timing-function: ease-out;
+}
+
+button.menu-close{
+background-color:#0000;
+left: 0;
+top: 0;
+border-radius: 0px;
+font-size:1.5em;
+padding:10px 10px 10px 10px;
+width:100%;
+text-align:left;
+}
+button.pane-button{
+background-color:#0000;
+left: 0;
+top: 0;
+border-radius: 0px;
+font-size:1em;
+padding:10px 10px 10px 10px;
+width:100%;
+text-align:left;
+}
+div.pane-content{
+padding-top:8px;
+display: none;
+}
+button.menu-close:hover,button.pane-button:hover{
+background:gray
+}
