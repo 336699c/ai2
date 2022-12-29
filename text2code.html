@@ -51,6 +51,7 @@ background:gray
 <title>01 Text To Code AI Generater</title>
 <link rel="stylesheet"     href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script src="/ai2/data/openai.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 </head>
@@ -90,7 +91,7 @@ return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0].split(
 function submit2(){
 $("#result").slideUp(300);
 $("#spin").show();
-var data = JSON.stringify({
+OpenAI.create({
   "model": "code-davinci-002",
   "prompt": document.getElementById("input").value,
   "temperature": 0,
@@ -98,26 +99,13 @@ var data = JSON.stringify({
   "top_p": 1,
   "frequency_penalty": 0,
   "presence_penalty": 0
-});
-
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "https://api.openai.com/v1/completions");
-
-xhr.setRequestHeader("Content-Type", "application/json");
-xhr.setRequestHeader("Authorization", "Bearer "+getAPIKey());
-
-xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      console.log(xhr.responseText);
-     document.getElementById("result").innerHTML = hljs.highlightAuto(JSON.parse(xhr.responseText).choices[0].text.replace(/\\\n/g,"\n")).value;
-     $("#result").slideDown(300);
-     $("#spin").hide();
-   }};
-
-xhr.send(data);
+},getAPIKey(),(response,code)=>{
+document.getElementById("result").innerHTML = hljs.highlightAuto(JSON.parse(response).choices[0].text.replace(/\\\n/g,"\n")).value;
+$("#result").slideDown(300);
+$("#spin").hide();
+})
 }
-
+  
 document.getElementById("result").innerText ="console.log('Hello World!')";
 hljs.highlightAll();
 </script>
