@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script>
+function getAPIKey(){
+return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0]?.split("=")[1];
+}
+  
+function def2(){
+const form = new FormData(Fi5);
+
+$.ajax({
+    url: "https://api.openai.com/v1/audio/transcriptions",
+    type: 'POST',
+    enctype:'multipart/form-data',
+    contentType: false,
+    processData: false,
+    data: form,
+    headers: {
+  	Authorization: "Bearer "+getAPIKey()
+}
+}).done(function(response) {
+    console.log(JSON.stringify(response));
+});
+
+
+}
+</script>
+
+
+
+
+</head>
+<body>
+
+<p>Click on the "Choose File" button to upload a file:</p>
+
+<form name="Fi5" method="post" enctype="multipart/form-data">
+
+<input type="hidden" name="model" value="whisper-1">
+<input name="file" type='file'>
+
+<input type="button" onclick="def2()">
+</form>
+</body>
+</html>
