@@ -5,11 +5,16 @@
 <style>.but{
 left: 0;
 top: 0;
-width:100%;
+height:100%;width:100%;
 border:0; 
-background-color:#190842
+background:#190842;
+position:fixed;
 }
 
+.mid2{
+height:300px;
+width:400px;
+}
 .dis{
 display:none
 }
@@ -19,27 +24,19 @@ display:none
 <body>
 
 <div id="controls">
-  	 <button class="but" id="recordButton" onclick="startRecording()"><img class="but" id="vid2" src="/ai2/data/voice_animation.png"></button>
+  	 <button class="but" id="recordButton" onclick="startRecording()"><img class="mid2" id="vid2" src="/ai2/data/voice_animation.png"></button>
   	 <button id="pauseButton" style="display:none">Pause</button>
-  	 <button class="but dis" id="stopButton" onclick="stopRecording()"><video class="but" muted="" loop="" playsinline="" autoplay="" src="/ai2/data/voice_animation.mp4" id="vid"></video></button>
+  	 <button class="but dis" id="stopButton" onclick="stopRecording()"><video class="mid2" muted="" loop="" playsinline="" autoplay="" src="/ai2/data/voice_animation.mp4" id="vid"></video></button>
     </div>
-  	<p><strong>Recordings:</strong></p>
-  	<ol id="recordingsList"><li><audio controls="" src="blob:https://336699c.github.io/357cca64-fa3e-431e-82a4-c03ebd35fda1"></audio>
-</li><li><audio controls="" src="blob:https://336699c.github.io/18755dee-f599-43e8-829f-1d9c5e583f3e"></audio>
-. . . . . .</li></ol>
+  	
+  	
     
   	<script src="https://addpipe.com/simple-recorderjs-demo/js/recorder.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>
-//webkitURL is deprecated but nevertheless
-URL = window.URL || window.webkitURL;
-
-var gumStream; 						//stream from getUserMedia()
-var pendList=[];
+<script>var gumStream; 						//stream from getUserMedia()
 var rec; 							//Recorder.js object
 var input; 							//MediaStreamAudioSourceNode we'll be recording
 
-// shim for AudioContext when it's not avb. 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
@@ -106,7 +103,6 @@ function stopRecording() {
 }
 
 function def2(fi2){
-pendList.push(fi2)
 const myFile = new File([fi2], 'test1.mp3', {
     type: fi2.type,
 });
@@ -123,26 +119,13 @@ $.ajax({
     processData: false,
     data: form,
     headers: {
-  	Authorization: "Bearer "+""
-//getAPIKey()
+  	Authorization: "Bearer "+getAPIKey()
 }
-}).done(function(response) {
+}).done(function (r){response2(r)});
+}
+
+function response2(response) {
     console.log(JSON.stringify(response));
-    $("#result").text(JSON.stringify(response));
-    var blob = pendList.shift();
-  
-	var au = document.createElement('audio');
-    var url = URL.createObjectURL(blob);
-	var li = document.createElement('li');
-	var filename = new Date().toISOString();
-
-	au.controls = true;
-    au.src = url;
-	li.appendChild(au);					li.appendChild(document.createTextNode("\n"+response.text))
-	recordingsList.appendChild(li);
-});
-
-
 }
 
 //Credit to creator of recorder.js
@@ -151,5 +134,6 @@ $.ajax({
 <script>
 
 </script>
+
 
 </body></html>
