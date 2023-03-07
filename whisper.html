@@ -1,12 +1,13 @@
 <html><head>
     <meta charset="UTF-8">
     <title>Speech Recognition</title>
-    <meta name="viewport" content="width=device-width, initial-scale=2.0">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 <style>.but{
 position:absolute;
 width:100%;
 border:0; 
 background:#190842;
+min-width:400px;
 }
 
 .orig{
@@ -15,7 +16,7 @@ height:100%;
 }
 .orig2{
 left:0;top:300px;
-height:calc(100%-300px);
+height:calc(50%-300px);
 }
 
 
@@ -31,7 +32,7 @@ display:none
   </head>
 <body>
 <div id="pic">
-<img id="pic_result">
+<img id="pic_result" style="height:25%;">
 <p id="pic_text">123</p>
 </div>
 <div id="controls">
@@ -155,6 +156,7 @@ $("#pic_result")[0].src = JSON.parse(response)?.data[0]?.url;
 
 //Credit to creator of recorder.js
 </script>
+
 
 
 
