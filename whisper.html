@@ -37,7 +37,7 @@ display:none
 <div id="controls">
   	 <button class="but orig" id="recordButton" onclick="startRecording()"><img class="mid2" id="vid2" src="/ai2/data/voice_animation.png"></button>
   	 <button id="pauseButton" style="display:none">Pause</button>
-  	 <button class="but dis orig" id="stopButton" onclick="stopRecording()"><video class="mid2" muted="" loop="" playsinline="" autoplay="" src="/ai2/data/voice_animation.mp4" id="vid"></video></button>
+  	 <button class="but orig dis" id="stopButton" onclick="stopRecording()"><video class="mid2" muted="" loop="" playsinline="" autoplay="" src="/ai2/data/voice_animation.mp4" id="vid"></video></button>
     </div>
   	
   	
@@ -137,24 +137,25 @@ $.ajax({
 
 function response2(response) {
     console.log(JSON.stringify(response));
-    $("#pic_text").innerText=response.text;
+    $("#pic_text")[0].innerText=response.text;
+$("#pic").slideDown(1000);
+$("#recordButton").removeClass("orig");
+$("#stopButton").removeClass("orig");
+$("#recordButton").addClass("orig2");
+$("#stopButton").addClass("orig2");
     OpenAI.dallepicture({
     "prompt": response.text,
     "n": 1,
     "size": "512x512"
   },getAPIKey(),(response,code)=>{
-$("#pic_result").src = JSON.parse(response)?.data[0]?.url;
-$("#pic").slideDown(300);
-$("#recordButton").removeClass("orig");
-$("#stopButton").removeClass("orig");
-$("#recordButton").addClass("orig2");
-$("#stopButton").addClass("orig2");
+$("#pic_result")[0].src = JSON.parse(response)?.data[0]?.url;
 })
 
 }
 
 //Credit to creator of recorder.js
 </script>
+
 
 
 
