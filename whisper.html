@@ -3,13 +3,21 @@
     <title>Speech Recognition</title>
     <meta name="viewport" content="width=device-width, initial-scale=2.0">  
 <style>.but{
-left: 0;
-top: 0;
-height:100%;width:100%;
+position:absolute;
+width:100%;
 border:0; 
 background:#190842;
-position:fixed;
 }
+
+.orig{
+left:0;top:0;
+height:100%;
+}
+.orig2{
+left:0;top:300px;
+height:calc(100%-300px);
+}
+
 
 .mid2{
 height:300px;
@@ -22,17 +30,20 @@ display:none
 </style>
   </head>
 <body>
-
+<div id="pic">
+<img id="pic_result">
+<p id="pic_text">123</p>
+</div>
 <div id="controls">
-  	 <button class="but" id="recordButton" onclick="startRecording()"><img class="mid2" id="vid2" src="/ai2/data/voice_animation.png"></button>
+  	 <button class="but orig" id="recordButton" onclick="startRecording()"><img class="mid2" id="vid2" src="/ai2/data/voice_animation.png"></button>
   	 <button id="pauseButton" style="display:none">Pause</button>
-  	 <button class="but dis" id="stopButton" onclick="stopRecording()"><video class="mid2" muted="" loop="" playsinline="" autoplay="" src="/ai2/data/voice_animation.mp4" id="vid"></video></button>
+  	 <button class="but dis orig" id="stopButton" onclick="stopRecording()"><video class="mid2" muted="" loop="" playsinline="" autoplay="" src="/ai2/data/voice_animation.mp4" id="vid"></video></button>
     </div>
   	
   	
     
-  	<script src="https://addpipe.com/simple-recorderjs-demo/js/recorder.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  	<script src="/ai2/data/openai.js"></script>
+    <script src="https://addpipe.com/simple-recorderjs-demo/js/recorder.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>var gumStream; 						//stream from getUserMedia()
 var rec; 							//Recorder.js object
 var input; 							//MediaStreamAudioSourceNode we'll be recording
@@ -126,14 +137,27 @@ $.ajax({
 
 function response2(response) {
     console.log(JSON.stringify(response));
+    $("#pic_text").innerText=response.text;
+    OpenAI.dallepicture({
+    "prompt": response.text,
+    "n": 1,
+    "size": "512x512"
+  },getAPIKey(),(response,code)=>{
+$("#pic_result").src = JSON.parse(response)?.data[0]?.url;
+$("#pic").slideDown(300);
+$("#recordButton").removeClass("orig");
+$("#stopButton").removeClass("orig");
+$("#recordButton").addClass("orig2");
+$("#stopButton").addClass("orig2");
+})
+
 }
 
 //Credit to creator of recorder.js
 </script>
 
-<script>
 
-</script>
+
 
 
 </body></html>
