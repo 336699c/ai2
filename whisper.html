@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,6 +14,7 @@
   	 <button id="stopButton" disabled>Stop</button>
     </div>
     <div id="formats">Format: start recording to see sample rate</div>
+    <p id="result">123</p>
   	<p><strong>Recordings:</strong></p>
   	<ol id="recordingsList"></ol>
     
@@ -184,6 +186,7 @@ $.ajax({
 }
 }).done(function(response) {
     console.log(JSON.stringify(response));
+    $("#result").text(JSON.stringify(response))
 });
 
 
