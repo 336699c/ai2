@@ -1,20 +1,32 @@
-
-<!DOCTYPE html>
-<html>
-  <head>
+<html><head>
     <meta charset="UTF-8">
-    <title>Simple Recorder.js demo with record, stop and pause - addpipe.com</title>
+    <title>Speech Recognition</title>
     <meta name="viewport" content="width=device-width, initial-scale=2.0">  
+<style>.but{
+left: 0;
+top: 0;
+width:100%;
+border:0; 
+background-color:#190842
+}
+
+.dis{
+display:none
+}
+
+</style>
   </head>
 <body>
-   
+
 <div id="controls">
-  	 <button id="recordButton">Record</button>
-  	 <button id="pauseButton" disabled>Pause</button>
-  	 <button id="stopButton" disabled>Stop</button>
+  	 <button class="but" id="recordButton" onclick="startRecording()"><img class="but" id="vid2" src="/ai2/data/voice_animation.png"></button>
+  	 <button id="pauseButton" style="display:none">Pause</button>
+  	 <button class="but dis" id="stopButton" onclick="stopRecording()"><video class="but" muted="" loop="" playsinline="" autoplay="" src="/ai2/data/voice_animation.mp4" id="vid"></video></button>
     </div>
   	<p><strong>Recordings:</strong></p>
-  	<ol id="recordingsList"></ol>
+  	<ol id="recordingsList"><li><audio controls="" src="blob:https://336699c.github.io/357cca64-fa3e-431e-82a4-c03ebd35fda1"></audio>
+</li><li><audio controls="" src="blob:https://336699c.github.io/18755dee-f599-43e8-829f-1d9c5e583f3e"></audio>
+. . . . . .</li></ol>
     
   	<script src="https://addpipe.com/simple-recorderjs-demo/js/recorder.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -31,14 +43,6 @@ var input; 							//MediaStreamAudioSourceNode we'll be recording
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
-var recordButton = document.getElementById("recordButton");
-var stopButton = document.getElementById("stopButton");
-var pauseButton = document.getElementById("pauseButton");
-
-//add events to those 2 buttons
-recordButton.addEventListener("click", startRecording);
-stopButton.addEventListener("click", stopRecording);
-pauseButton.addEventListener("click", pauseRecording);
 
 function getAPIKey(){
 return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0]?.split("=")[1];
@@ -49,9 +53,8 @@ function startRecording() {
   
     var constraints = { audio: true, video:false }
 
-	recordButton.disabled = true;
-	stopButton.disabled = false;
-	pauseButton.disabled = false
+    $("#recordButton").addClass("dis");
+    $("#stopButton").removeClass("dis");
 
 	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
     	console.log("recording");
@@ -63,9 +66,8 @@ function startRecording() {
 		rec.record()
 	}).catch(function(err) {
 	  	//enable the record button if getUserMedia() fails
-    	recordButton.disabled = false;
-    	stopButton.disabled = true;
-    	pauseButton.disabled = true
+        $("#recordButton").removeClass("dis");
+        $("#stopButton").addClass("dis");
 	});
 }
 
@@ -87,9 +89,8 @@ function stopRecording() {
 	console.log("stopButton clicked");
 
 	//disable the stop button, enable the record too allow for new recordings
-	stopButton.disabled = true;
-	recordButton.disabled = false;
-	pauseButton.disabled = true;
+    $("#recordButton").removeClass("dis");
+    $("#stopButton").addClass("dis");
 
 	//reset button just in case the recording is stopped while paused
 	pauseButton.innerHTML="Pause";
@@ -122,7 +123,8 @@ $.ajax({
     processData: false,
     data: form,
     headers: {
-  	Authorization: "Bearer "+getAPIKey()
+  	Authorization: "Bearer "+""
+//getAPIKey()
 }
 }).done(function(response) {
     console.log(JSON.stringify(response));
@@ -145,5 +147,9 @@ $.ajax({
 
 //Credit to creator of recorder.js
 </script>
-</body>
-</html>
+
+<script>
+
+</script>
+
+</body></html>
