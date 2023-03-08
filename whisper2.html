@@ -43,8 +43,10 @@ display:none
   	
   	
     
-  	<script src="/ai2/data/openai.js"></script>
-    <script src="https://addpipe.com/simple-recorderjs-demo/js/recorder.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="/ai2/data/openai.js"></script>
+<script src="/ai2/data/recorder.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	
 <script>var gumStream; 						//stream from getUserMedia()
 var rec; 							//Recorder.js object
 var input; 							//MediaStreamAudioSourceNode we'll be recording
@@ -124,7 +126,7 @@ form.append("model","whisper-1");
 form.append("file",myFile);
 
 $.ajax({
-    url: "https://api.openai.com/v1/audio/translations",
+    url: "https://api.openai.com/v1/audio/transcriptions",
     type: 'POST',
     enctype:'multipart/form-data',
     contentType: false,
@@ -136,8 +138,13 @@ $.ajax({
 }).done(function (r){response2(r)});
 }
 
+var ORIG_txt="";
+	
+	
 function response2(response) {
     console.log(JSON.stringify(response));
+    if(!response.text){alert("The server is busy. Please try again later.");return;}
+    var lang = /^[a-zA-Z\s\,\.\;]+$/.test(response.text)
     $("#pic_text")[0].innerText=response.text;
 $("#pic").slideDown(1000);
 $("#recordButton").removeClass("orig");
