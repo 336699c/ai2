@@ -108,8 +108,6 @@ function stopRecording() {
 	
 	//tell the recorder to stop the recording
 	rec.stop();
-
-	//stop microphone access
 	gumStream.getAudioTracks()[0].stop();
 
 	//create the wav blob and pass it on to createDownloadLink
@@ -124,7 +122,8 @@ console.log(myFile)
 const form = new FormData();
 form.append("model","whisper-1");
 form.append("file",myFile);
-
+ORIG_text="";
+    
 $.ajax({
     url: "https://api.openai.com/v1/audio/transcriptions",
     type: 'POST',
@@ -135,22 +134,45 @@ $.ajax({
     headers: {
   	Authorization: "Bearer "+getAPIKey()
 }
-}).done(function (r){response2(r)});
+}).done(function (r){response2(r,false)});
 }
 
 var ORIG_txt="";
 	
 	
-function response2(response) {
+function response2(response,omit) {
     console.log(JSON.stringify(response));
     if(!response.text){alert("The server is busy. Please try again later.");return;}
-    var lang = /^[a-zA-Z\s\,\.\;]+$/.test(response.text)
+    var lang = /^[a-zA-Z\s\,\.\;]+$/.test(ORIG_text+response.text)
     $("#pic_text")[0].innerText=response.text;
+    ORIG_text=response.text+"<br>";
+    
 $("#pic").slideDown(1000);
 $("#recordButton").removeClass("orig");
 $("#stopButton").removeClass("orig");
 $("#recordButton").addClass("orig2");
 $("#stopButton").addClass("orig2");
+if(lang || omit){
+    pic_gen(response)
+}else{
+    $.ajax({
+    url: "https://api.openai.com/v1/audio/translations",
+    type: 'POST',
+    enctype:'multipart/form-data',
+    contentType: false,
+    processData: false,
+    data: form,
+    headers: {
+  	Authorization: "Bearer "+getAPIKey()
+}
+}).done(function (r){response2(r,true)});
+}
+    
+
+
+}
+
+function pic_gen(response){
     OpenAI.dallepicture({
     "prompt": response.text,
     "n": 1,
@@ -158,9 +180,8 @@ $("#stopButton").addClass("orig2");
   },getAPIKey(),(response,code)=>{
 $("#pic_result")[0].src = JSON.parse(response)?.data[0]?.url;
 })
-
 }
-
+    
 //Credit to creator of recorder.js
 </script>
 
