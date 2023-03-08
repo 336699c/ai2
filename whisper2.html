@@ -145,8 +145,8 @@ function response2(response,omit) {
     console.log(JSON.stringify(response));
     if(!response.text){alert("The server is busy. Please try again later.");return;}
     var lang = /^[a-zA-Z\s\,\.\;]+$/.test(response.text)
-    $("#pic_text")[0].innerText=ORIG_text+response.text;
-    ORIG_text=response.text+"<br>";
+    $("#pic_text")[0].innerHTML=ORIG_text+response.text.replaceAll("<","&lt;");
+    ORIG_text=response.text.replaceAll("<","&lt;")+"<br>";
     
 $("#pic").slideDown(1000);
 $("#recordButton").removeClass("orig");
