@@ -114,12 +114,13 @@ function stopRecording() {
 	rec.exportWAV(def2);
 }
 
+var myFile,form;
 function def2(fi2){
-const myFile = new File([fi2], 'test1.mp3', {
+myFile = new File([fi2], 'test1.mp3', {
     type: fi2.type,
 });
 console.log(myFile)
-const form = new FormData();
+form = new FormData();
 form.append("model","whisper-1");
 form.append("file",myFile);
 ORIG_text="";
