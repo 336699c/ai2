@@ -1,0 +1,166 @@
+<html><head>
+    <meta charset="UTF-8">
+    <title>Speech Recognition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<style>.but{
+position:absolute;
+width:100%;
+border:0; 
+background:#190842;
+min-width:400px;
+}
+
+.orig{
+left:0;top:0;
+height:100%;
+}
+.orig2{
+left:0;top:300px;
+height:calc(50%-300px);
+}
+
+
+.mid2{
+height:300px;
+width:400px;
+}
+.dis{
+display:none
+}
+
+</style>
+  </head>
+<body>
+<div id="pic">
+<img id="pic_result" style="height:25%;">
+<p id="pic_text">123</p>
+</div>
+<div id="controls">
+  	 <button class="but orig" id="recordButton" onclick="startRecording()"><img class="mid2" id="vid2" src="/ai2/data/voice_animation.png"></button>
+  	 <button id="pauseButton" style="display:none">Pause</button>
+  	 <button class="but orig dis" id="stopButton" onclick="stopRecording()"><video class="mid2" muted="" loop="" playsinline="" autoplay="" src="/ai2/data/voice_animation.mp4" id="vid"></video></button>
+    </div>
+  	
+  	
+    
+  	<script src="/ai2/data/openai.js"></script>
+    <script src="https://addpipe.com/simple-recorderjs-demo/js/recorder.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>var gumStream; 						//stream from getUserMedia()
+var rec; 							//Recorder.js object
+var input; 							//MediaStreamAudioSourceNode we'll be recording
+
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioContext //audio context to help us record
+
+
+function getAPIKey(){
+return document.cookie.split(";").filter(e=>e.split("=")[0]=="apikey")[0]?.split("=")[1];
+}
+
+function startRecording() {
+	console.log("recordButton clicked");
+  
+    var constraints = { audio: true, video:false }
+
+    $("#recordButton").addClass("dis");
+    $("#stopButton").removeClass("dis");
+
+	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    	console.log("recording");
+		audioContext = new AudioContext();
+
+		gumStream = stream;
+		input = audioContext.createMediaStreamSource(stream);
+		rec = new Recorder(input,{numChannels:1})
+		rec.record()
+	}).catch(function(err) {
+	  	//enable the record button if getUserMedia() fails
+        $("#recordButton").removeClass("dis");
+        $("#stopButton").addClass("dis");
+	});
+}
+
+function pauseRecording(){
+	console.log("pauseButton clicked rec.recording=",rec.recording );
+	if (rec.recording){
+		//pause
+		rec.stop();
+		pauseButton.innerHTML="Resume";
+	}else{
+		//resume
+		rec.record()
+		pauseButton.innerHTML="Pause";
+
+	}
+}
+
+function stopRecording() {
+	console.log("stopButton clicked");
+
+	//disable the stop button, enable the record too allow for new recordings
+    $("#recordButton").removeClass("dis");
+    $("#stopButton").addClass("dis");
+
+	//reset button just in case the recording is stopped while paused
+	pauseButton.innerHTML="Pause";
+	
+	//tell the recorder to stop the recording
+	rec.stop();
+
+	//stop microphone access
+	gumStream.getAudioTracks()[0].stop();
+
+	//create the wav blob and pass it on to createDownloadLink
+	rec.exportWAV(def2);
+}
+
+function def2(fi2){
+const myFile = new File([fi2], 'test1.mp3', {
+    type: fi2.type,
+});
+console.log(myFile)
+const form = new FormData();
+form.append("model","whisper-1");
+form.append("file",myFile);
+
+$.ajax({
+    url: "https://api.openai.com/v1/audio/translations",
+    type: 'POST',
+    enctype:'multipart/form-data',
+    contentType: false,
+    processData: false,
+    data: form,
+    headers: {
+  	Authorization: "Bearer "+getAPIKey()
+}
+}).done(function (r){response2(r)});
+}
+
+function response2(response) {
+    console.log(JSON.stringify(response));
+    $("#pic_text")[0].innerText=response.text;
+$("#pic").slideDown(1000);
+$("#recordButton").removeClass("orig");
+$("#stopButton").removeClass("orig");
+$("#recordButton").addClass("orig2");
+$("#stopButton").addClass("orig2");
+    OpenAI.dallepicture({
+    "prompt": response.text,
+    "n": 1,
+    "size": "512x512"
+  },getAPIKey(),(response,code)=>{
+$("#pic_result")[0].src = JSON.parse(response)?.data[0]?.url;
+})
+
+}
+
+//Credit to creator of recorder.js
+</script>
+
+
+
+
+
+
+
+</body></html>
