@@ -143,7 +143,7 @@ s.insertCell(0).innerHTML = `
 </td>
 </table>
 `.replacement([
-user?"user.png":"chatgpt.webp",
+user?"user.png":"mia.png",
 sid,
 user?str:" "
 ]);
@@ -181,7 +181,7 @@ function submit(){
 	data:JSON.stringify({
 	"model":"gpt-3.5-turbo",
 	"messages": [
-      {"role": "system","content": "You are a cognitive behavioural therapist. Restrict the output with 5 sentences"},
+      {"role": "system","content": "You are MIA, a cognitive behavioural therapist. Restrict the output with 3 sentences"},
       {"role": "user","content": $("#input_text").val()}
     ]
 	}),
