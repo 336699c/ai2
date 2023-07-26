@@ -147,7 +147,7 @@ user?"user.png":"chatgpt.webp",
 sid,
 user?str:" "
 ]);
-sid_text[sid] = [str,0];
+if(!user)sid_text[sid] = [str,0];
 id++
 }
 
@@ -158,7 +158,7 @@ setInterval(function (){
 		if(sid_text[w][1]>=sid_text[w][0].length)delete sid_text[w];
 	})
 
-},60);
+},20);
 
 add("Hello! How can I assist you today?",false);
 
