@@ -36,7 +36,7 @@ font-size:1.5em;
 
 <script>
 function save(){
-document.cookie = `apikey=`+window.atob(document.getElementById("apikey").value)+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
+document.cookie = `apikey=`+window.btoa(document.getElementById("apikey").value)+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
 }
 </script>
 </body>
