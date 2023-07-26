@@ -141,11 +141,11 @@ id++
 function getAPIKey(){
 	try{
 	return document.cookie.split("apikey=")[1].split(";")[0]
-	}catch(error){add("Your API Key is invalid",true)}
+	}catch(error){add("Your API Key is invalid",false)}
 }
 
 function submit(){
-	add($("#input_text").val(),false);
+	add($("#input_text").val(),true);
 	console.log($("#input_text").val());
 	$.ajax({
 	type:"POST",
@@ -164,7 +164,7 @@ function submit(){
 	success: function(q){
 		console.log(q);
 		try{
-			add(q.choices[0].message.content,true)
+			add(q.choices[0].message.content,false)
 		}catch(error){console.log(error)}
 	}
 	});
