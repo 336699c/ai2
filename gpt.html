@@ -36,6 +36,7 @@ text-align:left
 
 table.chat3{
 width:100%;
+animation: fadeIn 2s;
 }
 
 .input3{
@@ -88,6 +89,13 @@ vertical-align: center;
 //margin:-8px 0 0 0;
 border-radius: 50%;
 }
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
@@ -120,28 +128,44 @@ border-radius: 50%;
 String.prototype.replacement = function(r){return this.replace(/\{\#\d\}/g, m => r.shift() || m);}
 
 var id=0;
+var sid=0;
+var sid_text={};
 function add(str,user){
 var s=document.getElementById("chat").insertRow(id);
+sid++;
 s.insertCell(0).innerHTML = `
 <table class="chat3">
 <td style="width:8%;min-width:30px">
 <img src="https://raw.githubusercontent.com/336699c/ai2/main/{#2}" alt="GPT">
 </td>
 <td>
-<label class="chat2">{#0}</label>
+<label class="chat2" id="Chatty_{#0}">{#0}</label>
 </td>
 </table>
 `.replacement([
 user?"user.png":"chatgpt.webp",
-str
+sid,
+user?str:" "
 ]);
+sid_text[sid] = [str,0];
 id++
 }
+
+setInterval(function (){
+	Object.keys(sid_text).forEach(w=>{
+		sid_text[w][1]++;
+		document.getElementById("Chatty_"+w).innerHTML = sid_text[w][0].substring(0,sid_text[w][1])	;
+		if(sid_text[w][1]>=sid_text[w][0].length)delete sid_text[w];
+	})
+
+},60);
+
+add("Hello! How can I assist you today?",false);
 
 function getAPIKey(){
 	try{
 	return document.cookie.split("apikey=")[1].split(";")[0]
-	}catch(error){add("Your API Key is invalid",false)}
+	}catch(error){add("Your API Key is invalid, please input your API Key on 336699c.github.io/ai2/settings",false)}
 }
 
 function submit(){
@@ -157,7 +181,7 @@ function submit(){
 	data:JSON.stringify({
 	"model":"gpt-3.5-turbo",
 	"messages": [
-      {"role": "system","content": "You are a cognitive behavioural therapist. Restrict the output with 5 sentences"},
+      {"role": "system","content": "You are a cognitive behavioural therapist. Restrict the output with 5 sentences"},
       {"role": "user","content": $("#input_text").val()}
     ]
 	}),
