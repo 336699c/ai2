@@ -152,7 +152,7 @@ function submit(){
 	url:"https://api.openai.com/v1/chat/completions",
 	headers: {
         "Content-Type":"application/json",
-        "Authorization":"Bearer "+window.btoa(getAPIKey())
+        "Authorization":"Bearer "+window.atob(getAPIKey())
     },
 	data:JSON.stringify({
 	"model":"gpt-3.5-turbo",
