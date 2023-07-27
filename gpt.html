@@ -6,7 +6,7 @@
 <style>
 body{
 font-family:"Arial";
-font-size:4vw;
+font-size:3.5vw;
 height: 90%;
 overflow: hidden;
 }
@@ -54,16 +54,15 @@ animation: fadeIn 2s;
   text-align: center;
   z-index: -1; /* Specify a stack order in case you're using a different order for other elements */
 }
-.input2{
-}
 
 .input_holder{
-width:95%;
+width:100%;
 border: 3px solid #949;
 border-radius:40px;
-padding: 1px;
+padding-left: 5px;
 background-color:#fff;
 height:7%;
+max-height:50px;
 }
 
 .input_text{
@@ -125,6 +124,7 @@ border-radius: 50%;
 </body>
 
 <script>
+const keywords=["depressed","happy","sad"];
 String.prototype.replacement = function(r){return this.replace(/\{\#\d\}/g, m => r.shift() || m);}
 
 var id=0;
@@ -135,7 +135,7 @@ var s=document.getElementById("chat").insertRow(id);
 sid++;
 s.insertCell(0).innerHTML = `
 <table class="chat3">
-<td style="width:8%;min-width:40px">
+<td style="width:8%;min-width:30px">
 <img src="https://raw.githubusercontent.com/336699c/ai2/main/{#2}" alt="GPT">
 </td>
 <td>
@@ -143,7 +143,7 @@ s.insertCell(0).innerHTML = `
 </td>
 </table>
 `.replacement([
-user?"user.png":"mia.png",
+user?"user.png":"chatgpt.webp",
 sid,
 user?str:" "
 ]);
@@ -170,6 +170,7 @@ function getAPIKey(){
 
 function submit(){
 	add($("#input_text").val(),true);
+	if($("#input_text").val().includes(" "+keywords+" "))add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/question'>https://336699c.github.io/ai2/question</a>",false)
 	console.log($("#input_text").val());
 	$.ajax({
 	type:"POST",
@@ -181,7 +182,7 @@ function submit(){
 	data:JSON.stringify({
 	"model":"gpt-3.5-turbo",
 	"messages": [
-      {"role": "system","content": "You are MIA, a cognitive behavioural therapist. Restrict the output with 3 sentences"},
+      {"role": "system","content": "You are a cognitive behavioural therapist. Restrict the output with 5 sentences"},
       {"role": "user","content": $("#input_text").val()}
     ]
 	}),
