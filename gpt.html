@@ -124,8 +124,16 @@ border-radius: 50%;
 </body>
 
 <script>
-var OPTIONAL = true;
-const keywords=["depressed","happy","sad"];
+var OPTIONAL = false;
+const keywords=["depressed","sad","unhappy",
+"heartbroken",
+"miserable",
+"sorry",
+"bad",
+"melancholy",
+"upset",
+"worried",
+"sorrowful"];
 String.prototype.replacement = function(r){return this.replace(/\{\#\d\}/g, m => r.shift() || m);}
 
 var id=0;
@@ -174,7 +182,7 @@ function submit(){
 	if(OPTIONAL)for (w in keywords){
 		if($("#input_text").val().includes(keywords[w])){
 			add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/question'>https://336699c.github.io/ai2/question</a>",false);
-			OPTIONAL=false;
+			OPTIONAL=true;
 			break;
 		}
 	}
@@ -190,7 +198,7 @@ function submit(){
 	data:JSON.stringify({
 	"model":"gpt-3.5-turbo",
 	"messages": [
-      {"role": "system","content": "You are MIA, a cognitive behavioural therapist. Restrict the output with 5 sentences"},
+      {"role": "system","content": "You are MIA, a cognitive behavioural therapist. Restrict the output with 3 sentences"},
       {"role": "user","content": $("#input_text").val()}
     ]
 	}),
