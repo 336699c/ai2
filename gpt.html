@@ -124,6 +124,7 @@ border-radius: 50%;
 </body>
 
 <script>
+var OPTIONAL = false;
 const keywords=["depressed","happy","sad"];
 String.prototype.replacement = function(r){return this.replace(/\{\#\d\}/g, m => r.shift() || m);}
 
@@ -170,9 +171,10 @@ function getAPIKey(){
 
 function submit(){
 	add($("#input_text").val(),true);
-	for (w in keywords){
+	if(OPTIONAL)for (w in keywords){
 		if($("#input_text").val().includes(keywords[w])){
 			add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/question'>https://336699c.github.io/ai2/question</a>",false);
+			OPTIONAL=true;
 			break;
 		}
 	}
