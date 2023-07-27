@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>
+        Build a Survey Form using HTML and CSS
+    </title>
+ 
+    <style>
+ 
+        body {
+            background-color: #dad;
+            font-family: Verdana;
+            text-align: left;
+        }
+ 
+		h1{
+		text-align:center;
+		}
+        /* Styling the Form (Color, Padding, Shadow) */
+        .form {
+            background-color: #fff;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+ 
+        /* Styling form-control Class */
+        .form-control {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+ 
+        .form-control label {
+            display: block;
+            margin-bottom: 10px;
+			text-align:left;
+        }
+ 
+        /* Styling form-control input,
+        select, textarea */
+        .form-control input,
+        .form-control select,
+        .form-control textarea {
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+            width: 95%;
+        }
+ 
+        /* Styling form-control Radio
+        button and Checkbox */
+        .form-control input[type="radio"],
+        .form-control input[type="checkbox"] {
+            display: inline-block;
+            width: auto;
+        }
+ 
+        /* Styling Button */
+        button {
+            background-color: #05c46b;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 21px;
+            display: block;
+            width: 100%;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+  
+<body>
+    <h1>MIA emotional anaylsis form</h1>
+  
+    <!-- Create Form -->
+	<div class="form">
+
+      <div class="form-control">
+        <table>
+          <tr>
+            <td colspan="6">
+             <label>1. Do you have trouble falling asleep?</label>
+            </td>
+          </tr>
+          <tr>
+          <td><input type="radio" id="q1_1" name="q1" value=0>0</input></td>
+          <td><input type="radio" id="q1_2" name="q1" value=1>1</input></td>
+          <td><input type="radio" id="q1_3" name="q1" value=2>2</input></td>
+          <td><input type="radio" id="q1_4" name="q1" value=3>3</input></td>
+          <td><input type="radio" id="q1_5" name="q1" value=4>4</input></td>
+          </tr>
+		  
+		  <tr>
+            <td colspan="6" style="padding-top:25px">
+             <label>2. Do you feel tense or high-strung?</label>
+            </td>
+          </tr>
+          <tr>
+          <td><input type="radio" id="q2_1" name="q2" value=0>0</input></td>
+          <td><input type="radio" id="q2_2" name="q2" value=1>1</input></td>
+          <td><input type="radio" id="q2_3" name="q2" value=2>2</input></td>
+          <td><input type="radio" id="q2_4" name="q2" value=3>3</input></td>
+          <td><input type="radio" id="q2_5" name="q2" value=4>4</input></td>
+          </tr>
+		  
+		  <tr>
+            <td colspan="6" style="padding-top:25px">
+             <label>3. Do you feel irritable or angry?</label>
+            </td>
+          </tr>
+          <tr>
+          <td><input type="radio" id="q3_1" name="q3" value=0>0</input></td>
+          <td><input type="radio" id="q3_2" name="q3" value=1>1</input></td>
+          <td><input type="radio" id="q3_3" name="q3" value=2>2</input></td>
+          <td><input type="radio" id="q3_4" name="q3" value=3>3</input></td>
+          <td><input type="radio" id="q3_5" name="q3" value=4>4</input></td>
+          </tr>
+		  
+		  <tr>
+            <td colspan="6" style="padding-top:25px">
+             <label>4. Are you feeling down or depressed?</label>
+            </td>
+          </tr>
+          <tr>
+          <td><input type="radio" id="q4_1" name="q4" value=0>0</input></td>
+          <td><input type="radio" id="q4_2" name="q4" value=1>1</input></td>
+          <td><input type="radio" id="q4_3" name="q4" value=2>2</input></td>
+          <td><input type="radio" id="q4_4" name="q4" value=3>3</input></td>
+          <td><input type="radio" id="q4_5" name="q4" value=4>4</input></td>
+          </tr>
+		  
+		  <tr>
+            <td colspan="6" style="padding-top:25px">
+             <label>5. Do you feel inferior to others?</label>
+            </td>
+          </tr>
+          <tr>
+          <td><input type="radio" id="q5_1" name="q5" value=0>0</input></td>
+          <td><input type="radio" id="q5_2" name="q5" value=1>1</input></td>
+          <td><input type="radio" id="q5_3" name="q5" value=2>2</input></td>
+          <td><input type="radio" id="q5_4" name="q5" value=3>3</input></td>
+          <td><input type="radio" id="q5_5" name="q5" value=4>4</input></td>
+          </tr>
+      </table>
+
+        </div>
+
+  
+        <!-- Multi-line Text Input Control -->
+        <button onclick="submit()">
+            Submit
+        </button>
+		
+		<label id="feedback" style="text-align:left;"></label>
+	</div>
+</body>
+
+<script>
+const respond={
+"5":"Your physical and mental fitness is in good condition",
+"9":"You have some emotional distress and it is recommended that you talk to family or friends",
+"14":"Your emotional distress makes you uncomfortable and it is recommended that you should seek professional advice",
+"26":"Your emotional distress makes you very uncomfortable and it is recommended that you should seek professional counseling for psychiatric treatment <br><br>☆If your “Suicidal thinking” item scores more than 2 points, please seek professional advice or receive psychiatric treatment. We are here to help you with."
+}
+
+
+	function submit(){
+		var pt=0;
+		for (var i=1;i<6;i++){
+			var gsv = document.querySelector( 'input[name="q'+i+'"]:checked');   
+			pt+=(gsv?parseInt(gsv.value):0)
+		}
+		var res = respond[Object.keys(respond).map(w=>[Math.abs(pt-parseInt(w)),w]).sort((a,b)=>{return (a[0]>b[0]?1:-1)})[0][1]];
+		document.getElementById("feedback").innerHTML = "Your total score: "+pt+"<br><br>"+res;
+		console.log(pt,res);
+	}
+
+</script>
+</html>
