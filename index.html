@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>
+        Welcome to MIA
+    </title>
+ 
+    <style>
+ 
+        body2 {
+            background-color: #dad;
+            font-family: Verdana;
+        }
+ 
+ body{
+		background-image: url("https://336699c.github.io/ai2/mia.png");
+		background-repeat: repeat;
+		background-size: 200px;
+		animation: slide 4s linear infinite;
+		overflow: hidden;
+	}
+	
+	@keyframes slide{
+	0% {
+		background-position: 0px;
+	}
+	100% {
+		background-position: 200px;
+	}
+	}
+	
+		h1{
+		text-align:center;
+		animation: spin 4s linear infinite;
+		font-size:50px;
+		color:#32a852;
+		}
+        /* Styling the Form (Color, Padding, Shadow) */
+        .form {
+            background-color: #fff0;
+			border:none;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+ 
+		table{
+		margin-left: auto;
+		margin-right: auto;
+		animation: fadeIn 2s;
+		}
+		
+		td{
+		padding-right: 5vw;
+		}
+		
+		td{
+		padding-top: 5vw;
+		}
+ 
+        /* Styling form-control input,
+        select, textarea */
+        .form-control input,
+        .form-control select,
+        .form-control textarea {
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+            width: 95%;
+        }
+ 
+
+        /* Styling Button */
+        button {
+            background-color: #32a852;
+            border: 1px solid #777;
+            border-radius: 11px;
+            font-family: inherit;
+            font-size: 16px;
+            display: block;
+            width: 20vw;
+			min-width:150px;
+			//height: 25vw;
+            //margin-top: 50px;
+            //margin-bottom: 20px;
+			animation: spin 4s linear infinite;
+        }
+		
+		@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes spin{
+	0% {
+		transform: rotate3d(1, 0, 1, 0deg);
+	}
+	100% {
+		transform: rotate3d(1, 0, 1, 360deg);
+	}
+	}
+    </style>
+	
+	<script>
+		window.onload = () => {
+			window.addEventListener("click", () => {
+				document.querySelector("audio").play();
+			});
+			document.querySelector("audio").play();
+		};
+		</script>
+	
+</head>
+  
+<body>
+<audio src="icon/soundtrack.mp3" autoplay=""></audio>
+    <h1>Welcome to MIA</h1>
+  
+    <!-- Create Form -->
+	<div class="form">
+
+        <table>
+			<tr>
+          <td><a href="https://336699c.github.io/ai2/gpt"><button><img src="https://336699c.github.io/ai2/icon/mia2.png" alt="next" style="width:100%">GPT</button></a></td>
+		  <td><a href="https://336699c.github.io/ai2/question"><button><img src="https://336699c.github.io/ai2/icon/question.png" alt="next" style="width:100%">Questionnaire</button></a></td>
+		  
+		  </tr>
+		  
+		  <tr>
+		  <td><a href="https://336699c.github.io/ai2/settings"><button><img src="https://336699c.github.io/ai2/icon/settings.png" alt="next" style="width:100%">Settings</button></a></td>
+		  </tr>
+        </table>
+	</div>
+</body>
+</html>
