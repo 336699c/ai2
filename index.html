@@ -20,6 +20,8 @@
  
 		h1{
 		text-align:center;
+		animation: spin 4s linear infinite;
+		font-size:50px;
 		}
         /* Styling the Form (Color, Padding, Shadow) */
         .form {
@@ -57,14 +59,7 @@
             width: 95%;
         }
  
-        /* Styling form-control Radio
-        button and Checkbox */
-        .form-control input[type="radio"],
-        .form-control input[type="checkbox"] {
-            display: inline-block;
-            width: auto;
-        }
- 
+
         /* Styling Button */
         button {
             background-color: #999;
@@ -78,16 +73,36 @@
 			//height: 25vw;
             //margin-top: 50px;
             //margin-bottom: 20px;
+			animation: spin 4s linear infinite;
         }
 		
 		@keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
+
+@keyframes spin{
+	0% {
+		transform: rotate3d(1, 0, 1, 0deg);
+	}
+	100% {
+		transform: rotate3d(1, 0, 1, 360deg);
+	}
+	}
     </style>
+	
+	<script>
+		window.onload = () => {
+			window.addEventListener("click", () => {
+				document.querySelector("audio").play();
+			});
+		};
+		</script>
+	
 </head>
   
 <body>
+<audio src="icon/soundtrack.mp3" autoplay=""></audio>
     <h1>Welcome to MIA</h1>
   
     <!-- Create Form -->
@@ -96,7 +111,7 @@
         <table>
 			<tr>
           <td><a href="https://336699c.github.io/ai2/gpt"><button><img src="https://336699c.github.io/ai2/icon/mia2.png" alt="next" style="width:100%">GPT</button></a></td>
-		  <td><a href="https://336699c.github.io/ai2/question"><button><img src="https://336699c.github.io/ai2/icon/question.png" alt="next" style="width:100%">Questionare</button></a></td>
+		  <td><a href="https://336699c.github.io/ai2/question"><button><img src="https://336699c.github.io/ai2/icon/question.png" alt="next" style="width:100%">Questionnaire</button></a></td>
 		  
 		  </tr>
 		  
