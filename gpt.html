@@ -170,12 +170,12 @@ function getAPIKey(){
 
 function submit(){
 	add($("#input_text").val(),true);
-	keywords.forEach(w=>{
+	for (w in keywords){
 		if($("#input_text").val().includes(" "+w+" ")){
 			add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/question'>https://336699c.github.io/ai2/question</a>",false);
 			break;
 		}
-	})
+	}
 	
 	console.log($("#input_text").val());
 	$.ajax({
