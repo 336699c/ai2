@@ -2,7 +2,11 @@
 <html>
 <head>
 <title>ChatGPT 3.5</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&display=swap" rel="stylesheet">
+  
 <style>
 body{
 font-family:"Arial";
@@ -100,7 +104,7 @@ border-radius: 50%;
 </head>
 <body>
 
-<div class="cont">
+<div class="cont" id="cont">
 <table id="chat">
 
 </table>
@@ -140,6 +144,8 @@ var id=0;
 var sid=0;
 var sid_text={};
 function add(str,user){
+var objDiv = document.getElementById("cont");
+	if(Math.abs(objDiv.scrollHeight-objDiv.scrollTop)<1200)objDiv.scrollTop = objDiv.scrollHeight;
 var s=document.getElementById("chat").insertRow(id);
 sid++;
 s.insertCell(0).innerHTML = `
@@ -164,9 +170,12 @@ setInterval(function (){
 	Object.keys(sid_text).forEach(w=>{
 		sid_text[w][1]++;
 		document.getElementById("Chatty_"+w).innerHTML = sid_text[w][0].substring(0,sid_text[w][1])	;
-		if(sid_text[w][1]>=sid_text[w][0].length)delete sid_text[w];
-	})
-
+		if(sid_text[w][1]>=sid_text[w][0].length){
+		delete sid_text[w];
+		var objDiv = document.getElementById("cont");
+		if(Math.abs(objDiv.scrollHeight-objDiv.scrollTop)<1200)objDiv.scrollTop = objDiv.scrollHeight;
+		}
+	});
 },20);
 
 add("Hello! How can I assist you today?",false);
@@ -180,7 +189,7 @@ function getAPIKey(){
 function submit(){
 	add($("#input_text").val(),true);
 	if(OPTIONAL)for (w in keywords){
-		if($("#input_text").val().includes(keywords[w])){
+		if($("#input_text").val().toLowerCase().includes(keywords[w])){
 			add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/question'>https://336699c.github.io/ai2/question</a>",false);
 			OPTIONAL=false;
 			break;
