@@ -81,11 +81,13 @@ body {
         /* Styling Button */
         button {
             background-color: #aaa0;
+			font-weight: bold;
             //border: 1px solid #777;
 			border:0px;
             //border-radius: 55px;
+			color:#fff;
             font-family: 'Quicksand', sans-serif;
-            font-size: 5vw;
+            font-size: min(5vw, 32px);
             display: block;
             width: 20vw;
 			min-width:150px;
@@ -95,6 +97,10 @@ body {
 			//animation: spin 4s linear infinite;
 			//filter: hue-rotate(180deg);
         }
+		
+		a{
+		text-decoration: none;
+		}
 		
 		@keyframes fadeIn {
   0% { opacity: 0; }
