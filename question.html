@@ -200,7 +200,7 @@ const respond={
 }
 
 
-	function submit(){
+function submit(){
 		var pt=0;
 		var chk = false;
 		for (var i=1;i<6;i++){
@@ -209,7 +209,7 @@ const respond={
 			pt+=(gsv?parseInt(gsv.value):0)
 		}
 		if(chk)pt=-1;
-		var res = respond[Object.keys(respond).filter(w=>pt>=w)[0]]
+		var res = respond[Object.keys(respond).filter(w=>pt<=parseInt(w))[0]]
 		document.getElementById("feedback").innerHTML = "Your total score: "+pt+"<br><br>"+res+"<br><a href='https://336699c.github.io/ai2/gpt'><button>Back to chat</button></a>";
 		console.log(pt,res);
 	}
