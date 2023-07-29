@@ -192,20 +192,24 @@ body {
 
 <script>
 const respond={
+"-1":"Please complete the form",
 "5":"Your physical and mental fitness is in good condition",
 "9":"You have some emotional distress and it is recommended that you talk to family or friends",
-"14":"Your emotional distress makes you uncomfortable and it is recommended that you should seek professional advice",
-"26":"Your emotional distress makes you very uncomfortable and it is recommended that you should seek professional counseling for psychiatric treatment"
+"14":"Your emotional distress makes you very uncomfortable and it is recommended that you should seek professional advice",
+"26":"Your emotional distress makes you very uncomfortable and it is recommended that you should seek for psychiatric treatment",
 }
 
 
 	function submit(){
 		var pt=0;
+		var chk = false;
 		for (var i=1;i<6;i++){
-			var gsv = document.querySelector( 'input[name="q'+i+'"]:checked');   
+			var gsv = document.querySelector( 'input[name="q'+i+'"]:checked');  
+			if(!gsv){chk=true; break}
 			pt+=(gsv?parseInt(gsv.value):0)
 		}
-		var res = respond[Object.keys(respond).map(w=>[Math.abs(pt-parseInt(w)),w]).sort((a,b)=>{return (a[0]>b[0]?1:-1)})[0][1]];
+		if(chk)pt=-1;
+		var res = respond[Object.keys(respond).filter(w=>pt>=w)[0]]
 		document.getElementById("feedback").innerHTML = "Your total score: "+pt+"<br><br>"+res+"<br><a href='https://336699c.github.io/ai2/gpt'><button>Back to chat</button></a>";
 		console.log(pt,res);
 	}
