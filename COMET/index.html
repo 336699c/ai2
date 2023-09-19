@@ -36,7 +36,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 15%;
+      height: 14%;
       background: linear-gradient(to top, #9d76c1, #ffffff);
       display: flex;
       align-items: center;
@@ -68,6 +68,11 @@
       align-items: center;
       justify-content: center;
     }
+	.button-content-2 {
+      //display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .button-image {
       width: 40px;
       height: 40px;
@@ -75,9 +80,12 @@
 	.button-image-2 {
       width: 60px;
       height: 60px;
+	  filter: invert(100%);
     }
     .dashboard-button .button-content {
       padding: 0 12px;
+	  display: flex;
+	align-items: center;
     }
     .dashboard-button .button-image + span {
       padding-left: 12px;
@@ -90,6 +98,23 @@
       color: #000000;
       align-items: flex-start;
     }
+	
+	
+.rectangle-l {
+  padding-top: 15px;
+  width: calc(47vw - 20px );
+  margin-left: 20px;
+  background-color: #E5CFF7;
+  height: 60px;
+}
+
+.rectangle-r {
+  padding-top: 15px;
+  width: calc(47vw - 20px );
+  margin-right: 20px;
+  background-color: #E5CFF7;
+  height: 60px;
+}
   </style>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
@@ -114,23 +139,28 @@
   <h2 id="username">Hi, Chris</h2>
   <p id="greeting" class="greeting">You are in above-average health condition,<br>healthier than 65% of people.</p>
 
+<div class="stats">
+  <div class="rectangle-l"></div>
+  <div class="rectangle-r"></div>
+</div>
+
   <div class="menu-bar">
     <a href="#" class="menu-bar-button ai-chat-button">
       <div class="button-content">
-        <img src="chat-bot.png" alt="AI Chat" class="button-image">
+        <img src="assets/chat-bot.png" alt="AI Chat" class="button-image">
 		<br>
         <span>AI Chat</span>
       </div>
     </a>
     <a href="#" class="menu-bar-button dashboard-button">
       <div class="button-content">
-        <img src="dashboard.png" alt="Dashboard" class="button-image-2">
-        <p style="padding-left: 12px; height:100%;margin-bottom: 0;margin-top: 0;display: inline">Dashboard</p>
+        <img src="assets/dashboard.png" alt="Dashboard" class="button-image-2">
+        <span style="padding-left: 24px;">Dashboard<span>
       </div>
     </a>
     <a href="#" class="menu-bar-button account-button">
       <div class="button-content">
-        <img src="user.png" alt="Account" class="button-image">
+        <img src="assets/user.png" alt="Account" class="button-image">
 		<br>
         <span>Account</span>
       </div>
