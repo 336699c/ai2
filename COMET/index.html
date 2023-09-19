@@ -8,14 +8,14 @@
       margin-left: 20px;
     }
     h1 {
-      font-size: 52px;
+      font-size: 72px;
       font-weight: bold;
       text-align: left;
       margin-left: 20px;
       margin-top: 40px;
     }
     h2 {
-      font-size: 36px;
+      font-size: 48px;
       font-weight: normal;
       text-align: left;
       margin-left: 20px;
@@ -24,12 +24,13 @@
       padding-bottom: 6px;
     }
     .greeting {
-      font-size: 24px;
+	  font-weight: 200;
+      font-size: 36px;
       color: #797979;
       margin-left: 20px;
       margin-top: 6px;
       line-height: 1.4;
-      margin-bottom: 12px;
+      margin-bottom: 24px;
     }
     .menu-bar {
       position: fixed;
@@ -37,7 +38,7 @@
       left: 0;
       width: 100%;
       height: 14%;
-      background: linear-gradient(to top, #9d76c1, #ffffff);
+      background: linear-gradient(to top, #9d76c1ff, #ffffff00);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -62,6 +63,7 @@
       border-radius: 70px;
       padding: 10px;
       height: 35%;
+	  min-height:50px;
     }
     .button-content {
       //display: flex;
@@ -101,20 +103,46 @@
 	
 	
 .rectangle-l {
+  margin-right:10px;
   padding-top: 15px;
   width: calc(47vw - 20px );
   margin-left: 20px;
   background-color: #E5CFF7;
-  height: 60px;
+  padding-bottom: 15px;
 }
 
 .rectangle-r {
+  margin-left:10px;
   padding-top: 15px;
   width: calc(47vw - 20px );
   margin-right: 20px;
   background-color: #E5CFF7;
-  height: 60px;
+  padding-bottom: 15px;
 }
+
+.stats {
+  display: flex;
+  padding-top: 20px;
+}
+
+.rectangle-text {
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.rectangle-image {
+      width: 40px;
+      height: 40px;
+	  margin-left: 15px;
+	  margin-right: 10px;
+    }
+	
+.chart-img {
+      width: calc(100% - 30px );
+	  margin-left: 15px;
+	  margin-right: 10px;
+	  margin-top: 7px;
+    }
   </style>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
@@ -140,8 +168,29 @@
   <p id="greeting" class="greeting">You are in above-average health condition,<br>healthier than 65% of people.</p>
 
 <div class="stats">
-  <div class="rectangle-l"></div>
-  <div class="rectangle-r"></div>
+  <div class="rectangle-l">
+	<img src="assets/goal.png" alt="Overview" class="rectangle-image">
+	<span class="rectangle-text">Overview</span>
+  	<img src="assets/ch_overview.png" alt="Dashboard" class="chart-img">
+  </div>
+  <div class="rectangle-r">
+	<img src="assets/performance.png" alt="Performance" class="rectangle-image">
+	<span class="rectangle-text">Performance</span>
+  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
+  </div>
+  
+</div>
+<div class="stats">
+  <div class="rectangle-l">
+	<img src="assets/time.png" alt="Reaction Time" class="rectangle-image">
+	<span class="rectangle-text">Reaction Time</span>
+  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
+  </div>
+  <div class="rectangle-r">
+	<img src="assets/endurance.png" alt="Endurance" class="rectangle-image">
+	<span class="rectangle-text">Endurance</span>
+  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
+  </div>
 </div>
 
   <div class="menu-bar">
