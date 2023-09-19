@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>COMET Dashboard</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin-left: 20px;
+    }
+    h1 {
+      font-size: 52px;
+      font-weight: bold;
+      text-align: left;
+      margin-left: 20px;
+      margin-top: 40px;
+    }
+    h2 {
+      font-size: 36px;
+      font-weight: normal;
+      text-align: left;
+      margin-left: 20px;
+      margin-top: 6px;
+      margin-bottom: 0;
+      padding-bottom: 6px;
+    }
+    .greeting {
+      font-size: 24px;
+      color: #797979;
+      margin-left: 20px;
+      margin-top: 6px;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .menu-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 15%;
+      background: linear-gradient(to top, #9d76c1, #ffffff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+    .menu-bar-button {
+      display: flex;
+      //flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #000000;
+      text-decoration: none;
+      font-size: 36px;
+      padding: 0 20px;
+      background-color: transparent;
+      flex-grow: 1;
+    }
+    .dashboard-button {
+      background-color: #9d76c1;
+      color: #ffffff;
+      border-radius: 70px;
+      padding: 10px;
+      height: 35%;
+    }
+    .button-content {
+      //display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .button-image {
+      width: 40px;
+      height: 40px;
+    }
+	.button-image-2 {
+      width: 60px;
+      height: 60px;
+    }
+    .dashboard-button .button-content {
+      padding: 0 12px;
+    }
+    .dashboard-button .button-image + span {
+      padding-left: 12px;
+    }
+    .ai-chat-button {
+      color: #000000;
+      align-items: flex-start;
+    }
+    .account-button {
+      color: #000000;
+      align-items: flex-start;
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      // Fetch the username from the API
+      fetch('your-api-endpoint')
+        .then(response => response.json())
+        .then(data => {
+          var username = data.username || 'Chris'; // Default username is "Chris"
+          document.getElementById("username").textContent = "Hi, " + username;
+
+          var greetingText = "You are in above-average health condition,<br>healthier than 65% of people.";
+          document.getElementById("greeting").innerHTML = greetingText;
+        })
+        .catch(error => {
+          console.error('Error fetching username:', error);
+        });
+    });
+  </script>
+</head>
+<body>
+  <h1>COMET Dashboard</h1>
+  <h2 id="username">Hi, Chris</h2>
+  <p id="greeting" class="greeting">You are in above-average health condition,<br>healthier than 65% of people.</p>
+
+  <div class="menu-bar">
+    <a href="#" class="menu-bar-button ai-chat-button">
+      <div class="button-content">
+        <img src="chat-bot.png" alt="AI Chat" class="button-image">
+		<br>
+        <span>AI Chat</span>
+      </div>
+    </a>
+    <a href="#" class="menu-bar-button dashboard-button">
+      <div class="button-content">
+        <img src="dashboard.png" alt="Dashboard" class="button-image-2">
+        <p style="padding-left: 12px; height:100%;margin-bottom: 0;margin-top: 0;display: inline">Dashboard</p>
+      </div>
+    </a>
+    <a href="#" class="menu-bar-button account-button">
+      <div class="button-content">
+        <img src="user.png" alt="Account" class="button-image">
+		<br>
+        <span>Account</span>
+      </div>
+    </a>
+  </div>
+</body>
+</html>
