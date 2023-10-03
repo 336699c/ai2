@@ -19,6 +19,7 @@
       bottom: 0;
       left: 0;
 	  width: 100%;
+	  min-height:8vh;
     }
 	.menu-bar{
 		z-index:1;
@@ -27,7 +28,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 14vw;
+      height: 10vh;
       background: linear-gradient(to top, #9d76c1ff, #ffffff00);
       display: flex;
       align-items: center;
@@ -114,8 +115,12 @@ overflow-y: scroll;
 
 .input_ok{
 display:inline;
-width:40px;
-height:40px	;
+min-width:40px;
+min-height:40px	;
+
+width:5.5vw;
+height:5.5vw;
+
 border: none;
 background-color:#949c;
 color:#fff;
@@ -131,8 +136,8 @@ border-radius: 50%;
 }
 
 .input_holder{
-width:95%;
-border: 3px solid #949;
+width:99vw;
+border: 4px solid #949;
 border-radius:40px;
 padding:1px;
 background-color:#fff;
@@ -141,7 +146,7 @@ height:7%;
 }
 
 .input_text{
-width:90%;
+width:90vw;
 border-width:0px;
 background-color:#fff0;
 padding-left:20px;
@@ -205,17 +210,17 @@ text-align:left;
     <a href="/ai2/COMET/chat" class="menu-bar-button ai-chat-button">
       <div class="button-content">
         <img src="assets/chat-bot.png" alt="AI Chat" class="button-image-2">
-        <span>AI Chat</span>
+        <span style="padding-left: 24px;">AI Chat</span>
       </div>
     </a>
     <a href="/ai2/COMET/index" class="menu-bar-button dashboard-button">
       <div class="button-content">
         <img src="assets/dashboard.png" alt="Dashboard" class="button-image">
 		<br>
-        <span style="padding-left: 24px;">Dashboard<span>
+        <span>Dashboard<span>
       </div>
     </a>
-    <a href="#" class="menu-bar-button account-button">
+    <a href="/ai2/COMET/settings" class="menu-bar-button account-button">
       <div class="button-content">
         <img src="assets/user.png" alt="Account" class="button-image">
 		<br>
@@ -281,8 +286,8 @@ add("Hello! How can I assist you today?",false);
 
 function getAPIKey(){
 	try{
-	return document.cookie.split("apikey=")[1].split(";")[0]
-	}catch(error){add("Your API Key is invalid, please input your API Key on 336699c.github.io/ai2/settings",false)}
+	return document.cookie.split("apikey2=")[1].split(";")[0]
+	}catch(error){add("Your API Key is invalid, please input your API Key on Account Settings Page.",false)}
 }
 
 function submit(){
@@ -306,7 +311,7 @@ function submit(){
 	data:JSON.stringify({
 	"model":"gpt-3.5-turbo",
 	"messages": [
-      {"role": "system","content": "You are MIA, a cognitive behavioural therapist. Restrict the output with 2 sentences"},
+      {"role": "system","content": "You are COMET, a cognitive behavioural therapist. Restrict the output with 2 sentences. In your every output, Response in the following way: [Emoji][-2/-1/0/+1/+2 (very negative/negative/netural/positive/very positive)] | [Chatgpt Normal Response]"},
       {"role": "user","content": $("#input_text").val()}
     ]
 	}),

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>COMET Dashboard</title>
+  <title>COMET Settings</title>
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -58,7 +58,7 @@
       background-color: transparent;
       flex-grow: 1;
     }
-    .dashboard-button {
+    .account-button {
       background-color: #9d76c1;
       color: #ffffff;
       border-radius: 70px;
@@ -85,19 +85,19 @@
       height: 60px;
 	  filter: invert(100%);
     }
-    .dashboard-button .button-content {
+    .account-button .button-content {
       padding: 0 12px;
 	  display: flex;
 	align-items: center;
     }
-    .dashboard-button .button-image + span {
+    .account-button .button-image + span {
       padding-left: 12px;
     }
     .ai-chat-button {
       color: #000000;
       align-items: flex-start;
     }
-    .account-button {
+    .dashboard-button {
       color: #000000;
       align-items: flex-start;
     }
@@ -145,53 +145,15 @@
 	  margin-top: 7px;
     }
   </style>
-  <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      // Fetch the username from the API
-      fetch('your-api-endpoint')
-        .then(response => response.json())
-        .then(data => {
-          var username = data.username || 'Chris'; // Default username is "Chris"
-          document.getElementById("username").textContent = "Hi, " + username;
-
-          var greetingText = "You are in above-average health condition,<br>healthier than 65% of people.";
-          document.getElementById("greeting").innerHTML = greetingText;
-        })
-        .catch(error => {
-          console.error('Error fetching username:', error);
-        });
-    });
-  </script>
 </head>
 <body>
-  <h1>COMET Dashboard</h1>
-  <h2 id="username">Hi, Chris</h2>
-  <p id="greeting" class="greeting">You are in above-average health condition,<br>healthier than 65% of people.</p>
+  <h1>COMET Settings</h1>
 
-<div class="stats">
-  <div class="rectangle-l">
-	<img src="assets/goal.png" alt="Overview" class="rectangle-image">
-	<span class="rectangle-text">Overview</span>
-  	<img src="assets/ch_overview.png" alt="Dashboard" class="chart-img">
-  </div>
-  <div class="rectangle-r">
-	<img src="assets/performance.png" alt="Performance" class="rectangle-image">
-	<span class="rectangle-text">Performance</span>
-  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
-  </div>
-  
-</div>
-<div class="stats">
-  <div class="rectangle-l">
-	<img src="assets/time.png" alt="Reaction Time" class="rectangle-image">
-	<span class="rectangle-text">Reaction Time</span>
-  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
-  </div>
-  <div class="rectangle-r">
-	<img src="assets/endurance.png" alt="Endurance" class="rectangle-image">
-	<span class="rectangle-text">Endurance</span>
-  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
-  </div>
+<div id="main" class="container container-collaspe">
+<div id="top" style="padding-bottom:10px">
+<label style="color:#000;font-size:30px">Api Key= </label>
+<input type="textbox" id="apikey" placeholder="sk-apikey" style="width:400px;font-size:30px">
+<button onclick="save()" style="font-size:30px">Save</button>
 </div>
 
   <div class="menu-bar">
@@ -204,17 +166,23 @@
     </a>
     <a href="/ai2/COMET/index" class="menu-bar-button dashboard-button">
       <div class="button-content">
-        <img src="assets/dashboard.png" alt="Dashboard" class="button-image-2">
-        <span style="padding-left: 24px;">Dashboard<span>
+        <img src="assets/dashboard.png" alt="Dashboard" class="button-image">
+		<br>
+        <span>Dashboard<span>
       </div>
     </a>
     <a href="/ai2/COMET/settings" class="menu-bar-button account-button">
       <div class="button-content">
-        <img src="assets/user.png" alt="Account" class="button-image">
-		<br>
-        <span>Account</span>
+        <img src="assets/user.png" alt="Account" class="button-image-2">
+        <span style="padding-left: 24px;">Account</span>
       </div>
     </a>
   </div>
 </body>
+
+<script>
+function save(){
+document.cookie = `apikey2=`+window.btoa(document.getElementById("apikey").value)+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
+}
+</script>
 </html>
