@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>COMET Dashboard</title>
+  <style>
+	:root {
+	--cont-bottom-height: 0; /* Default value for cont-bottom's height */
+		}
+  
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin-left: 20px;
+    }
+    h1 {
+      font-size: 72px;
+      font-weight: bold;
+      text-align: left;
+      margin-left: 20px;
+      margin-top: 40px;
+    }
+    .cont-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+	  width: 100%;
+	  min-height:8vh;
+    }
+	.menu-bar{
+		z-index:1;
+		position: relative;
+		
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10vh;
+      background: linear-gradient(to top, #9d76c1ff, #ffffff00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+	  min-height:120px;
+	}
+    .menu-bar-button {
+      display: flex;
+      //flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #000000;
+      text-decoration: none;
+      font-size: 36px;
+      padding: 0 20px;
+      background-color: transparent;
+      flex-grow: 1;
+    }
+    .ai-chat-button {
+      background-color: #9d76c1;
+      color: #ffffff;
+      border-radius: 70px;
+      padding: 10px;
+      height: 35%;
+	  min-height:50px;
+    }
+    .button-content {
+      //display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+	.button-content-2 {
+      //display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .button-image {
+      width: 40px;
+      height: 40px;
+    }
+	.button-image-2 {
+      width: 60px;
+      height: 60px;
+	  filter: invert(100%);
+    }
+    .ai-chat-button .button-content {
+      padding: 0 12px;
+	  display: flex;
+	align-items: center;
+    }
+    .dashboard-button .button-image + span {
+      padding-left: 12px;
+    }
+    .dashboard-button {
+      color: #000000;
+      align-items: flex-start;
+    }
+    .account-button {
+      color: #000000;
+      align-items: flex-start;
+    }
+	
+  </style>
+  
+
+
+<style>
+
+div.cont td{
+border-radius:20px;
+padding: 5px 5px 5px 5px;
+vertical-align: top;
+background-color:#f7f8fa;
+}
+
+div.cont{
+width:100%;
+z-index: 1;
+overflow-y: scroll;
+}
+
+.input_ok{
+display:inline;
+min-width:40px;
+min-height:40px	;
+
+width:5.5vw;
+height:5.5vw;
+
+border: none;
+background-color:#949c;
+color:#fff;
+vertical-align: center;
+//margin:-8px 0 0 0;
+border-radius: 50%;
+}
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.input_holder{
+width:99vw;
+border: 4px solid #949;
+border-radius:40px;
+padding:1px;
+background-color:#fff;
+height:7%;
+
+}
+
+.input_text{
+width:90vw;
+border-width:0px;
+background-color:#fff0;
+padding-left:20px;
+height:100%;
+font-size:3.5vw;
+resize: none;
+display:inline;
+outline: none !important ;
+}
+
+table.chat3{
+width:100%;
+animation: fadeIn 2s;
+}
+
+.input2 {
+  position: relative;
+  top: 0;
+  z-index: 2;
+}
+
+img{width:100%}
+
+table.chat3: td nth-child(2){
+padding-left:10px;
+text-align:left;
+}
+</style>
+
+  
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<body>
+  <h1>AI Chat</h1>
+
+<div class="cont" id="cont">
+<table id="chat">
+
+</table>
+</div>
+
+<div class="cont-bottom">
+
+<div class="input2">
+	<div class="input_holder">
+	<table>
+	<td>
+	<textarea class="input_text" id="input_text" rows="3" cols="40" placeholder="Talk to MIA"></textarea>
+	</td>
+	<td>
+	<button class="input_ok" onclick="submit()">
+		<img src="https://raw.githubusercontent.com/336699c/ai2/main/next.png" alt="next" style="width:100%">
+	</button>
+	</td>
+	</table>
+	</div>
+</div>
+
+
+  <div class="menu-bar">
+    <a href="/ai2/COMET/chat" class="menu-bar-button ai-chat-button">
+      <div class="button-content">
+        <img src="assets/chat-bot.png" alt="AI Chat" class="button-image-2">
+        <span style="padding-left: 24px;">AI Chat</span>
+      </div>
+    </a>
+    <a href="/ai2/COMET/index" class="menu-bar-button dashboard-button">
+      <div class="button-content">
+        <img src="assets/dashboard.png" alt="Dashboard" class="button-image">
+		<br>
+        <span>Dashboard<span>
+      </div>
+    </a>
+    <a href="/ai2/COMET/settings" class="menu-bar-button account-button">
+      <div class="button-content">
+        <img src="assets/user.png" alt="Account" class="button-image">
+		<br>
+        <span>Account</span>
+      </div>
+    </a>
+  </div>
+</div>
+</body>
+
+<script>
+const cont = document.querySelector('.cont');
+cont.style.setProperty('height', `${window.innerHeight - $('.cont-bottom').height() - 180}px`);
+
+var OPTIONAL = true;
+const keywords=["depressed","sad","unhappy",
+"heartbroken",
+"miserable",
+"sorry",
+"bad",
+"melancholy",
+"upset",
+"worried",
+"sorrowful"];
+String.prototype.replacement = function(r){return this.replace(/\{\#\d\}/g, m => r.shift() || m);}
+
+var id=0;
+var sid=0;
+var sid_text={};
+function add(str,user){
+var objDiv = document.getElementById("cont");
+	if(Math.abs(objDiv.scrollHeight-objDiv.scrollTop)<1200)objDiv.scrollTop = objDiv.scrollHeight;
+var s=document.getElementById("chat").insertRow(id);
+sid++;
+s.insertCell(0).innerHTML = `
+<table class="chat3">
+<td style="width:8%;min-width:40px">
+<img src="https://raw.githubusercontent.com/336699c/ai2/main/{#2}" alt="GPT">
+</td>
+<td>
+<label class="chat2" id="Chatty_{#0}" style="font-size:4vw">{#0}</label>
+</td>
+</table>
+`.replacement([
+user?"user.png":"mia.png",
+sid,
+user?str:" "
+]);
+if(!user)sid_text[sid] = [str,0];
+id++
+}
+
+setInterval(function (){
+	Object.keys(sid_text).forEach(w=>{
+		sid_text[w][1]++;
+		document.getElementById("Chatty_"+w).innerHTML = sid_text[w][0].substring(0,sid_text[w][1])	;
+		if(sid_text[w][1]>=sid_text[w][0].length){
+		delete sid_text[w];
+		var objDiv = document.getElementById("cont");
+		if(Math.abs(objDiv.scrollHeight-objDiv.scrollTop)<1200)objDiv.scrollTop = objDiv.scrollHeight;
+		}
+	});
+},20);
+
+add("Hello! How can I assist you today?",false);
+
+function getAPIKey(){
+	try{
+	return document.cookie.split("apikey2=")[1].split(";")[0]
+	}catch(error){add("Your API Key is invalid, please input your API Key on Account Settings Page.",false)}
+}
+
+function submit(){
+	add($("#input_text").val(),true);
+	
+	/*if(OPTIONAL)for (w in keywords){
+		if($("#input_text").val().toLowerCase().includes(keywords[w])){
+			add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/question'>https://336699c.github.io/ai2/question</a>",false);
+			OPTIONAL=false;
+			break;
+		}
+	}*/
+	
+	console.log($("#input_text").val());
+	$.ajax({
+	type:"POST",
+	url:"https://api.openai.com/v1/chat/completions",
+	headers: {
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+window.atob(getAPIKey())
+    },
+	data:JSON.stringify({
+	"model":"gpt-3.5-turbo",
+	"messages": [
+      {"role": "system","content": "You are COMET, a cognitive behavioural therapist. Restrict the output with 2 sentences. In your every output, Response in the following way: [Emoji][-2/-1/0/+1/+2 (very negative/negative/netural/positive/very positive)] | [Chatgpt Normal Response]"},
+      {"role": "user","content": $("#input_text").val()}
+    ]
+	}),
+	success: function(q){
+		console.log(q);
+		try{
+			add(q.choices[0].message.content,false);
+			var matcher = q.choices[0].message.content.match(/[\-\+][0-2]/);
+			console.log(parseInt(matcher[0]));
+			if (matcher){
+				switch(parseInt(matcher[0])){
+					case 2:
+						document.body.style.backgroundColor="#f9ebf7";
+					break;
+					case 1:
+						document.body.style.backgroundColor="#69228d";
+					break;
+					case 0:
+						document.body.style.backgroundColor="#fff";
+					break;
+					case -1:
+						document.body.style.backgroundColor="#ffb300";
+					break;
+					case -2:
+						document.body.style.backgroundColor="#f33b3b";
+					break;
+				}
+			}
+			
+		}catch(error){console.log(error)}
+	}
+	});
+	$("#input_text").val("")
+}
+</script>
+
+</html>
