@@ -298,13 +298,14 @@ function getAPIKey(){
 
 function submit(){
 	add($("#input_text").val(),true);
-	if(OPTIONAL)for (w in keywords){
+	
+	/*if(OPTIONAL)for (w in keywords){
 		if($("#input_text").val().toLowerCase().includes(keywords[w])){
 			add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/question'>https://336699c.github.io/ai2/question</a>",false);
 			OPTIONAL=false;
 			break;
 		}
-	}
+	}*/
 	
 	console.log($("#input_text").val());
 	$.ajax({
@@ -325,9 +326,9 @@ function submit(){
 		console.log(q);
 		try{
 			add(q.choices[0].message.content,false);
-			var matcher = q.choices[0].message.content.match(/\[[\-\+][0-2]\] \|/)
-			if (matcher.length>0){
-				switch(parseInt(matcher[0].substring(1))){
+			var matcher = q.choices[0].message.content.match(/[\-\+][0-2]/)
+			if (matcher){
+				switch(parseInt(matcher[0])){
 					case "2":
 						document.body.style.backgroundColor="#f9ebf7";
 					break;
