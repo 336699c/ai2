@@ -310,13 +310,13 @@ function getAPIKey(){
 function submit(){
 	add($("#input_text").val(),true);
 	
-	/*if(OPTIONAL)for (w in keywords){
+	if(OPTIONAL)for (w in keywords){
 		if($("#input_text").val().toLowerCase().includes(keywords[w])){
 			add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/question'>https://336699c.github.io/ai2/question</a>",false);
 			OPTIONAL=false;
 			break;
 		}
-	}*/
+	}
 	
 	console.log($("#input_text").val());
 	$.ajax({
@@ -340,19 +340,19 @@ function submit(){
 			var matcher = q.choices[0].message.content.match(/[\-\+][0-2]/)
 			if (matcher){
 				switch(parseInt(matcher[0])){
-					case "2":
+					case 2:
 						document.body.style.backgroundColor="#f9ebf7";
 					break;
-					case "1":
+					case 1:
 						document.body.style.backgroundColor="#69228d";
 					break;
-					case "0":
+					case 0:
 						document.body.style.backgroundColor="#fff";
 					break;
-					case "-1":
+					case -1:
 						document.body.style.backgroundColor="#ffb300";
 					break;
-					case "-2":
+					case -2:
 						document.body.style.backgroundColor="#f33b3b";
 					break;
 				}
