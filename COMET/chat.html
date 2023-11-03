@@ -337,23 +337,23 @@ function submit(){
 		console.log(q);
 		try{
 			add(q.choices[0].message.content,false);
-			var matcher = q.choices[0].message.content.match(/[\-\+][0-2]/)
+			var matcher = q.choices[0].message.content.match(/[\-\+]?[0-2]/)
 			if (matcher){
 				switch(parseInt(matcher[0])){
 					case 2:
-						document.body.style.backgroundColor="#f9ebf7";
+						document.body.style.backgroundColor="#f29655";
 					break;
 					case 1:
-						document.body.style.backgroundColor="#69228d";
+						document.body.style.backgroundColor="#f2d355";
 					break;
 					case 0:
 						document.body.style.backgroundColor="#fff";
 					break;
 					case -1:
-						document.body.style.backgroundColor="#ffb300";
+						document.body.style.backgroundColor="#9c55f2";
 					break;
 					case -2:
-						document.body.style.backgroundColor="#f33b3b";
+						document.body.style.backgroundColor="#5574f2";
 					break;
 				}
 			}
