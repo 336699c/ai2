@@ -119,21 +119,23 @@
 	
 .rectangle-l {
   margin-right:10px;
-  padding-top: 15px;
-  width: calc(47vw - 20px );
-  margin-left: 20px;
-  background-color: #E5CFF7;
-  padding-bottom: 15px;
+  margin-left: 20px; 
 }
 
 .rectangle-r {
   margin-left:10px;
-  padding-top: 15px;
-  width: calc(47vw - 20px );
   margin-right: 20px;
-  background-color: #E5CFF7;
-  padding-bottom: 15px;
 }
+
+.rectangle-all {
+border-radius: 75px;
+	background-image: linear-gradient(135deg, #aeeeff, #bb8ef6);
+	padding-bottom: 15px;
+	width: calc(47vw - 20px );
+	padding-top: 15px;
+}
+
+
 
 .stats {
   display: flex;
@@ -141,13 +143,15 @@
 }
 
 .rectangle-text {
-  font-size: 42px;
+  font-size: 46px;
   font-weight: bold;
+  color:#ffffff;
+  vertical-align: top;
 }
 
 .rectangle-image {
-      width: 40px;
-      height: 40px;
+      width: 80px;
+      height: 80px;
 	  margin-left: 15px;
 	  margin-right: 10px;
     }
@@ -158,6 +162,10 @@
 	  margin-right: 10px;
 	  margin-top: 7px;
     }
+	
+.section-break{
+padding-top: 70px;
+}	
   </style>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
@@ -183,30 +191,68 @@
   <p id="greeting" class="greeting">You are in above-average health condition,<br>healthier than 65% of people.</p>
 
 <div class="stats">
-  <div class="rectangle-l">
-	<img src="assets/goal.png" alt="Overview" class="rectangle-image">
-	<span class="rectangle-text">Overview</span>
+  <img src="assets/Easy.png" alt="Normal" class="rectangle-image">
+  <label class="rectangle-text">Normal</label>
+</div>
+
+<div class="stats section-break">
+  <div class="rectangle-l rectangle-all">
+	<img src="assets/radar.png" alt="Overview" class="rectangle-image">
+	<label class="rectangle-text">Overview</label>
   	<img src="assets/ch_overview.png" alt="Dashboard" class="chart-img">
   </div>
-  <div class="rectangle-r">
-	<img src="assets/performance.png" alt="Performance" class="rectangle-image">
-	<span class="rectangle-text">Performance</span>
-  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
+  <div class="rectangle-r rectangle-all">
+	<img src="assets/score.png" alt="Score" class="rectangle-image">
+	<span class="rectangle-text">Score</span>
+  	<img src="assets/ch_graph.png" alt="Score" class="chart-img">
   </div>
   
 </div>
 <div class="stats">
-  <div class="rectangle-l">
-	<img src="assets/time.png" alt="Reaction Time" class="rectangle-image">
+  <div class="rectangle-l rectangle-all">
+	<img src="assets/rtime.png" alt="Reaction Time" class="rectangle-image">
 	<span class="rectangle-text">Reaction Time</span>
-  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
+  	<img src="assets/ch_graph.png" alt="Reaction Time" class="chart-img">
   </div>
-  <div class="rectangle-r">
-	<img src="assets/endurance.png" alt="Endurance" class="rectangle-image">
+  <div class="rectangle-r rectangle-all">
+	<img src="assets/combo.png" alt="Endurance" class="rectangle-image">
 	<span class="rectangle-text">Endurance</span>
-  	<img src="assets/ch_graph.png" alt="Dashboard" class="chart-img">
+  	<img src="assets/ch_graph.png" alt="Endurance" class="chart-img">
   </div>
 </div>
+
+<div class="stats section-break">
+  <img src="assets/Hard.png" alt="Advanced" class="rectangle-image">
+  <label class="rectangle-text">Advanced</label>
+</div>
+
+<div class="stats">
+  <div class="rectangle-l rectangle-all">
+	<img src="assets/radar.png" alt="Overview" class="rectangle-image">
+	<label class="rectangle-text">Overview</label>
+  	<img src="assets/ch_overview.png" alt="Dashboard" class="chart-img">
+  </div>
+  <div class="rectangle-r rectangle-all">
+	<img src="assets/score.png" alt="Score" class="rectangle-image">
+	<span class="rectangle-text">Score</span>
+  	<img src="assets/ch_graph.png" alt="Score" class="chart-img">
+  </div>
+  
+</div>
+<div class="stats">
+  <div class="rectangle-l rectangle-all">
+	<img src="assets/rtime.png" alt="Reaction Time" class="rectangle-image">
+	<span class="rectangle-text">Reaction Time</span>
+  	<img src="assets/ch_graph.png" alt="Reaction Time" class="chart-img">
+  </div>
+  <div class="rectangle-r rectangle-all">
+	<img src="assets/combo.png" alt="Endurance" class="rectangle-image">
+	<span class="rectangle-text">Endurance</span>
+  	<img src="assets/ch_graph.png" alt="Endurance" class="chart-img">
+  </div>
+</div>
+
+<div style="height:200px"><label>  </label></div>
 
   <div class="menu-bar">
     <a href="/ai2/COMET/chat" class="menu-bar-button ai-chat-button">
