@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Data Display</title>
+ <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+var firebaseConfig = {
+  apiKey: "AIzaSyAi2nfDKfwYdKJMRawaaAcpY3CiCT9gymQ",
+  authDomain: "comet-mobile.firebaseapp.com",
+  databaseURL: "https://comet-mobile-default-rtdb.firebaseio.com",
+  projectId: "comet-mobile",
+  storageBucket: "comet-mobile.appspot.com",
+  messagingSenderId: "638054265604",
+  appId: "1:638054265604:web:7acaa03089364d0b8c1651"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+var database = firebase.database();
+var dataRef = database.ref("Normal/Score/Best");
+
+database.ref('Normal/Score/Best').once('value', function(snapshot) {
+  var data = snapshot.val();
+  console.log("Normal",data);
+});
+database.ref('Advanced/Score/Best').once('value', function(snapshot) {
+  var data = snapshot.val();
+  console.log("Advanced",data);
+});
+</script>
+
+ 
+
+
+<style>
+    canvas {
+      border: 1px solid #ccc;
+    }
+  </style>
+  
+  
+</head>
+<body>
+<canvas id="radarChart" width="400" height="400"></canvas>
+<script>
+var VARIABLE = {};
+var COUNTER = 0;
+
+var MODE = "NormalRadar";
+
+const Dataset = {
+"NormalRadar":{
+	dataset:["Normal/Score/Best","Normal/Rate/Best","Normal/Combo/Best"],
+	label:["Score","Rate","Combo"],
+	formula:{
+		"Normal/Score/Best": ((x)=>{return (Math.floor(x/1000)+1)}),
+		"Normal/Combo/Best": ((x)=>{return (Math.floor(x/10)+1)*10})
+	}
+	
+}
+
+}
+
+getAll(MODE);
+
+
+function getAll(k){
+	COUNTER=0;
+	Dataset[k].dataset.forEach(i=>{
+		let j = i;
+		database.ref(j).once('value', function(snapshot) {
+			console.log(snapshot.val());
+			VARIABLE[j] = (Dataset[k].formula[j] ? Dataset[k].formula[j](snapshot.val()) : snapshot.val() );
+			COUNTER++;
+			grabber(COUNTER,Dataset[k].dataset.length);
+		});
+	})
+}
+
+
+
+function grabber(c,k){
+	if (c!=k)return;
+	
+	// Radar data
+    const data = {
+      labels: Dataset[MODE].label,
+      datasets: [{
+        label: 'Data',
+        data: Dataset[MODE].dataset.map(w=>VARIABLE[w]),
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    };
+
+
+    // Get the canvas element
+    const ctx = document.getElementById('radarChart').getContext('2d');
+
+    // Create the radar chart
+    new Chart(ctx, {
+      type: 'radar',
+      data: data,
+      options: {
+		  scale: {
+			ticks: {
+			  beginAtZero: true,
+			  max: 100
+			}
+		  }
+		}
+    });
+}
+    
+	
+  </script>
+</body>
+</html>
