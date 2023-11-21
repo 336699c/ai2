@@ -13,6 +13,8 @@
   
 <link rel="icon" type="image/x-icon" href="/ai2/COMET/assets/Stella Icon.png">  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
 
   <style>
     body {
@@ -42,6 +44,16 @@
     .greeting {
 	  font-weight: 300;
       font-size: 32px;
+      color: #797979;
+      margin-left: 20px;
+      margin-top: 6px;
+      line-height: 1.4;
+      margin-bottom: 24px;
+	  color: #ffffff;
+    }
+	.greeting2 {
+	  font-weight: 250;
+      font-size: 18px;
       color: #797979;
       margin-left: 20px;
       margin-top: 6px;
@@ -147,6 +159,14 @@ border-radius: 75px;
 	padding-top: 15px;
 }
 
+.rectangle-t {
+border-radius: 75px;
+	background-image: linear-gradient(135deg, #aeeeff, #bb8ef6);
+	padding-bottom: 15px;
+	width: 100%;
+	padding-top: 15px;
+	text-align: center;
+}
 
 .stats {
   display: flex;
@@ -209,25 +229,78 @@ padding-top: 70px;
 	background-color: #fff0;
 }
 
+.box {
+  
+  --v:calc( ((18/5) * var(--p) - 90)*1deg);
+
+  width:200px;
+  height:200px;
+  display:inline-block;
+  border-radius:50%;
+  padding:20px;
+  background:
+    linear-gradient(#ffff,#bb8ef6) content-box,
+    linear-gradient(var(--v), #888     50%,transparent 0) 0/min(100%,(50 - var(--p))*100%),
+    linear-gradient(var(--v), transparent 50%,var(--c)        0) 0/min(100%,(var(--p) - 50)*100%),
+    linear-gradient(to right, #888 50%,var(--c) 0);
+  text-align: center;
+  margin: 20px 20px 20px 20px;
+}
+
+.pie_text{
+margin: 0;
+-ms-transform: translateY(20%);
+transform: translateY(20%);
+height:100%;
+font-size:40px;
+font-family:monospace;
+}
   </style>
   <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      // Fetch the username from the API
-	  /*
-      fetch('your-api-endpoint')
-        .then(response => response.json())
-        .then(data => {
-          var username = data.username || 'Chris'; // Default username is "Chris"
-          document.getElementById("username").textContent = "Hi, " + username;
+  String.prototype.replacement = function(r){return this.replace(/\{\#\d\}/g, m => r.shift() || m);}
+  
+var firebaseConfig = {
+  apiKey: "AIzaSyAi2nfDKfwYdKJMRawaaAcpY3CiCT9gymQ",
+  authDomain: "comet-mobile.firebaseapp.com",
+  databaseURL: "https://comet-mobile-default-rtdb.firebaseio.com",
+  projectId: "comet-mobile",
+  storageBucket: "comet-mobile.appspot.com",
+  messagingSenderId: "638054265604",
+  appId: "1:638054265604:web:7acaa03089364d0b8c1651"
+};
 
-          var greetingText = "You are in above-average health condition,<br>healthier than 65% of people.";
-          document.getElementById("greeting").innerHTML = greetingText;
-        })
-        .catch(error => {
-          console.error('Error fetching username:', error);
-        });
-		*/
-		$("#details").hide();
+firebase.initializeApp(firebaseConfig);
+
+var database = firebase.database();
+
+var VARIABLE = {};
+var COUNTER = 0;
+const Dataset = {
+	dataset:["Normal/Score/Best","Normal/Rate/Best","Normal/Combo/Best"],
+	formula:{
+		"Normal/Combo/Best": ((x)=>{return (Math.floor(x/10)+1)*10})
+	}
+
+}
+
+Dataset.dataset.forEach(i=>{
+	let j = i;
+	database.ref(j).once('value', function(snapshot) {
+		console.log(snapshot.val());
+		COUNTER++;
+		VARIABLE[j] = snapshot.val(); //(Dataset.formula[j] ? Dataset.formula[j](snapshot.val()) : snapshot.val() );
+		if (COUNTER==3)wrapper()
+	});
+})
+
+</script>
+  
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+
+		$("#overview").hide();
+		$(".statbutton_off").css("background-color","#bb8ef6");
+		$(".statbutton_on").css("background-color","#fff0");
 		$(".statbutton_on").click(function(){
 			$(".statbutton_on").css("background-color","#bb8ef6");
 			$(".statbutton_off").css("background-color","#fff0");
@@ -244,11 +317,64 @@ padding-top: 70px;
 	
 
   </script>
+  
+  <script>
+  function getAPIKey(){
+	try{
+	//return document.cookie.split("apikey2=")[1].split(";")[0]
+	return window.btoa("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")
+	}catch(error){
+	console.log(error)
+	}
+}
+
+function wrapper(){
+	console.log(VARIABLE)
+	let s = ["Normal/Score/Best","Normal/Rate/Best","Normal/Combo/Best"].map(w=>VARIABLE[w])
+	s[4] = s[0]/600 > 100 ? 100 : s[0]/600;
+	$(".pie_score").css("--p",s[4])
+	$(".pie_score").html($(".pie_score").html().replace(/<b>.*<\/b>/,"<b>"+s[0]+"</b>"))
+	$(".pie_combo").css("--p",s[2])
+	$(".pie_combo").html($(".pie_combo").html().replace(/<b>.*<\/b>/,"<b>"+s[2]+"%</b>"))
+	$(".pie_rtime").css("--p",s[1])
+	$(".pie_rtime").html($(".pie_rtime").html().replace(/<b>.*<\/b>/,"<b>"+s[1]+"%</b>"))
+
+
+	$.ajax({
+	type:"POST",
+	url:"https://api.openai.com/v1/chat/completions",
+	headers: {
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+window.atob(getAPIKey())
+    },
+	data:JSON.stringify({
+	"model":"gpt-3.5-turbo",
+	"messages": [
+      {"role": "system","content": "Act as a health analysist.  I have a set of data in a game for you to give feedback."},
+      {"role": "user","content": `Score: {#0} out of 60000
+Combo: {#1}%
+Reaction Time: {#2}%
+
+1. Reply in the following format: "1. You are in {excellent/above-average/average/fair/below-average/poor} health condition, healthier than {x%} of people."
+2. Generate a 1-sentence feedback in the following format: "2. Feedback: {Your feedback}"`.replacement(s)}
+    ]
+	}),
+	success: function(q){
+		console.log(q);
+		var result = q.choices[0].message.content;
+		$("#greeting").text(result.match(/You are .* people/)+".")
+		$("#greeting2").text(result.match(/(Feedback:)|(2.) .*/)[0].replace("2. ",""))
+	}
+	});
+	
+}
+  </script>
 </head>
 <body>
   <h1>COMET Dashboard</h1>
   <h2 id="username">Hi, Chris</h2>
   <p id="greeting" class="greeting">You are in above-average health condition,<br>healthier than 65% of people.</p>
+  <p id="greeting2" class="greeting2"></p>
 
 <div class="statchooser">
 <button class="statbutton statbutton_on">Overview</button>
@@ -267,15 +393,39 @@ padding-top: 70px;
 <div class="details" id="details">
 <div class="stats section-break">
   
-  <div class="rectangle-r rectangle-all">
-	<img src="assets/score.png" alt="Score" class="rectangle-image">
-	<span class="rectangle-text">Score</span>
-  	<img src="assets/ch_graph.png" alt="Score" class="chart-img">
+  <div class="rectangle-t rectangle-all">
+	<table style="margin: 0 auto;">
+	<tr>
+	<td>
+		<div class="box pie_score" style="--p:51;--c:#FCD775">
+		<div class="pie_text">
+		  <label>Score<br><br><b>51%</b></label>
+		</div>
+		</div>
+	</td>
+	<td>
+		<div class="box pie_combo" style="--p:90;--c:#FD7676">
+		<div class="pie_text">
+		  <label>Combo<br><br><b>90%</b></label>
+		</div>
+		</div>
+	</td>
+	<td>
+		<div class="box pie_rtime" style="--p:100;--c:#9CF491">
+		<div class="pie_text">
+		  <label>Reaction<br>Time<br><b>100%</b></label>
+		</div>
+		</div>
+	</td>
+	</tr>
+	</table>
   </div>
   
 </div>
 
 </div>
+
+
 
 <div style="height:200px"><label>  </label></div>
 
