@@ -12,7 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
   
 <link rel="icon" type="image/x-icon" href="/ai2/COMET/assets/Stella Icon.png">  
-  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
@@ -137,6 +138,14 @@ border-radius: 75px;
 	padding-top: 15px;
 }
 
+.rectangle-x {
+border-radius: 75px;
+	background-image: linear-gradient(135deg, #aeeeff, #bb8ef6);
+	padding-bottom: 15px;
+	width: 100%;
+	height: 100vw;
+	padding-top: 15px;
+}
 
 
 .stats {
@@ -164,17 +173,47 @@ border-radius: 75px;
 	  margin-right: 10px;
 	  margin-top: 7px;
 	  border-radius:25px;
-	  height:80%;
+	  height:90%;
 	  border: none;
     }
 	
 .section-break{
 padding-top: 70px;
 }	
+
+
+.statchooser{
+	
+	border-radius: 75px;
+	width:505px;
+	margin: auto;
+	text-align: center;
+	background-color:#696969;
+}
+
+.statbutton{
+	border-radius: 75px;
+	padding: 15px 25px 15px 25px;
+	width:250px;
+	border:none;
+	font-size:32px;
+	font-family: 'Quicksand', sans-serif;
+	color:#fff;
+}
+
+.statbutton_on{
+	background-color: #bb8ef6;
+}
+
+.statbutton_off{
+	background-color: #fff0;
+}
+
   </style>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
       // Fetch the username from the API
+	  /*
       fetch('your-api-endpoint')
         .then(response => response.json())
         .then(data => {
@@ -187,7 +226,23 @@ padding-top: 70px;
         .catch(error => {
           console.error('Error fetching username:', error);
         });
+		*/
+		$("#details").hide();
+		$(".statbutton_on").click(function(){
+			$(".statbutton_on").css("background-color","#bb8ef6");
+			$(".statbutton_off").css("background-color","#fff0");
+			$("#details").hide();
+			$("#overview").show();
+		});
+		$(".statbutton_off").click(function(){
+			$(".statbutton_off").css("background-color","#bb8ef6");
+			$(".statbutton_on").css("background-color","#fff0");
+			$("#overview").hide();
+			$("#details").show();
+		})
     });
+	
+
   </script>
 </head>
 <body>
@@ -195,17 +250,23 @@ padding-top: 70px;
   <h2 id="username">Hi, Chris</h2>
   <p id="greeting" class="greeting">You are in above-average health condition,<br>healthier than 65% of people.</p>
 
-<div class="stats">
-  <img src="assets/Easy.png" alt="Normal" class="rectangle-image">
-  <label class="rectangle-text">Normal</label>
+<div class="statchooser">
+<button class="statbutton statbutton_on">Overview</button>
+<button class="statbutton statbutton_off">Details</button>
+</div>
+<div style="height:30px"><label>  </label></div>
+
+<div class="overview" id="overview">
+	<div class="rectangle-x">
+		<img src="assets/radar.png" alt="Overview" class="rectangle-image">
+		<label class="rectangle-text">Overview</label>
+		<iframe src="chart.html" class="chart-img" scrolling="no" ></iframe>
+	</div>
 </div>
 
+<div class="details" id="details">
 <div class="stats section-break">
-  <div class="rectangle-l rectangle-all">
-	<img src="assets/radar.png" alt="Overview" class="rectangle-image">
-	<label class="rectangle-text">Overview</label>
-  	<iframe src="chart.html" class="chart-img" scrolling="no" ></iframe>
-  </div>
+  
   <div class="rectangle-r rectangle-all">
 	<img src="assets/score.png" alt="Score" class="rectangle-image">
 	<span class="rectangle-text">Score</span>
@@ -213,67 +274,26 @@ padding-top: 70px;
   </div>
   
 </div>
-<div class="stats">
-  <div class="rectangle-l rectangle-all">
-	<img src="assets/rtime.png" alt="Reaction Time" class="rectangle-image">
-	<span class="rectangle-text">Reaction Time</span>
-  	<img src="assets/ch_graph.png" alt="Reaction Time" class="chart-img">
-  </div>
-  <div class="rectangle-r rectangle-all">
-	<img src="assets/combo.png" alt="Endurance" class="rectangle-image">
-	<span class="rectangle-text">Endurance</span>
-  	<img src="assets/ch_graph2.png" alt="Endurance" class="chart-img">
-  </div>
-</div>
 
-<div class="stats section-break">
-  <img src="assets/Hard.png" alt="Advanced" class="rectangle-image">
-  <label class="rectangle-text">Advanced</label>
-</div>
-
-<div class="stats">
-  <div class="rectangle-l rectangle-all">
-	<img src="assets/radar.png" alt="Overview" class="rectangle-image">
-	<label class="rectangle-text">Overview</label>
-  	<img src="assets/ch_overview.png" alt="Dashboard" class="chart-img">
-  </div>
-  <div class="rectangle-r rectangle-all">
-	<img src="assets/score.png" alt="Score" class="rectangle-image">
-	<span class="rectangle-text">Score</span>
-  	<img src="assets/ch_graph.png" alt="Score" class="chart-img">
-  </div>
-  
-</div>
-<div class="stats">
-  <div class="rectangle-l rectangle-all">
-	<img src="assets/rtime.png" alt="Reaction Time" class="rectangle-image">
-	<span class="rectangle-text">Reaction Time</span>
-  	<img src="assets/ch_graph2.png" alt="Reaction Time" class="chart-img">
-  </div>
-  <div class="rectangle-r rectangle-all">
-	<img src="assets/combo.png" alt="Endurance" class="rectangle-image">
-	<span class="rectangle-text">Endurance</span>
-  	<img src="assets/ch_graph2.png" alt="Endurance" class="chart-img">
-  </div>
 </div>
 
 <div style="height:200px"><label>  </label></div>
 
   <div class="menu-bar">
-    <a href="/ai2/COMET/chat" class="menu-bar-button ai-chat-button">
+    <a href="/ai2/COMET/chat.html" class="menu-bar-button ai-chat-button">
       <div class="button-content">
         <img src="assets/chat-bot.png" alt="AI Chat" class="button-image">
 		<br>
         <span>AI Chat</span>
       </div>
     </a>
-    <a href="/ai2/COMET/index" class="menu-bar-button dashboard-button">
+    <a href="/ai2/COMET/index.html" class="menu-bar-button dashboard-button">
       <div class="button-content">
         <img src="assets/dashboard.png" alt="Dashboard" class="button-image-2">
         <span style="padding-left: 24px;">Dashboard<span>
       </div>
     </a>
-    <a href="/ai2/COMET/settings" class="menu-bar-button account-button">
+    <a href="/ai2/COMET/settings.html" class="menu-bar-button account-button">
       <div class="button-content">
         <img src="assets/user.png" alt="Account" class="button-image">
 		<br>

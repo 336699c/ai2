@@ -37,6 +37,8 @@ database.ref('Advanced/Score/Best').once('value', function(snapshot) {
 <style>
     canvas {
       border: 1px solid #ccc;
+	  width:1200px;
+	  height:1000px;
     }
   </style>
   
@@ -92,6 +94,7 @@ function grabber(c,k){
         data: Dataset[MODE].dataset.map(w=>VARIABLE[w]),
         backgroundColor: 'rgba(54, 162, 235, 0.5)',
         borderColor: 'rgba(54, 162, 235, 1)',
+		
         borderWidth: 1
       }]
     };
@@ -102,16 +105,29 @@ function grabber(c,k){
 
     // Create the radar chart
     new Chart(ctx, {
-      type: 'radar',
-      data: data,
-      options: {
+	  type: 'radar',
+	  data: data,
+	  options: {
 		  scale: {
+			min: 0,
+			max: 100,
 			ticks: {
 			  beginAtZero: true,
-			  max: 100
-			}
+			  stepSize: 10,
+			},
+			},
+			resposive: false,
+		  maintainAspectRatio: false,
+		  showScale: false,
+		  plugins:{
+		  legend:{
+		  display:false
 		  }
-		}
+		  }
+		  
+		  
+	}
+	  
     });
 }
     
