@@ -321,8 +321,8 @@ Dataset.dataset.forEach(i=>{
   <script>
   function getAPIKey(){
 	try{
-	//return document.cookie.split("apikey2=")[1].split(";")[0]
-	return window.btoa("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")
+	return document.cookie.split("apikey2=")[1].split(";")[0]
+	
 	}catch(error){
 	console.log(error)
 	}
