@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>COMET Settings</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -144,6 +145,31 @@
 	  margin-right: 10px;
 	  margin-top: 7px;
     }
+	
+    .radio-button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 140px;
+      height: 40px;
+      border-radius: 10%;
+      border: 2px solid gray;
+      background-color: gray;
+      cursor: pointer;
+    }
+
+    .radio-button.selected {
+      background-color: green;
+    }
+
+    /* Hide default radio button */
+    input[type="radio"] {
+      display: none;
+    }
+
+    .radio-button-text {
+      font-size: 38px;
+    }
   </style>
 </head>
 <body>
@@ -151,27 +177,67 @@
 
 <div id="main" class="container container-collaspe">
 <div id="top" style="padding-bottom:10px">
-<label style="color:#000;font-size:30px">Api Key= </label>
-<input type="textbox" id="apikey" placeholder="sk-apikey" style="width:400px;font-size:30px">
+<div>
+<image src="assets/user.jpg" width=200px>
+<label style="font-size:38px;vertical-align:50%;height:100%"> Chris Wong</label>
+</div>
+
+
+<label style="color:#000;font-size:30px">Api Key 2 = </label>
+<input type="textbox" id="apikey2" placeholder="sk-apikey" style="width:400px;font-size:30px">
+
+<br>
+
+<label style="color:#000;font-size:30px">Api Key 3 = </label>
+<input type="textbox" id="apikey3" placeholder="sk-apikey" style="width:400px;font-size:30px">
+
+<br>
+
+<label style="color:#000;font-size:30px">Api Key 4 = </label>
+<input type="textbox" id="apikey4" placeholder="sk-apikey" style="width:400px;font-size:30px">
+
 <button onclick="save()" style="font-size:30px">Save</button>
 </div>
 
+<div>
+
+  <label>
+    <input type="radio" name="radio" value="2">
+    <div class="radio-button">
+      <span class="radio-button-text">API2</span>
+    </div>
+  </label>
+  <label>
+    <input type="radio" name="radio" value="3">
+    <div class="radio-button">
+      <span class="radio-button-text">API3</span>
+    </div>
+  </label>
+  <label>
+    <input type="radio" name="radio" value="4">
+    <div class="radio-button">
+      <span class="radio-button-text">API4</span>
+    </div>
+  </label>
+
+</div>
+
   <div class="menu-bar">
-    <a href="/ai2/COMET/chat" class="menu-bar-button ai-chat-button">
+    <a href="/ai2/COMET/chat.html" class="menu-bar-button ai-chat-button">
       <div class="button-content">
         <img src="assets/chat-bot.png" alt="AI Chat" class="button-image">
 		<br>
         <span>AI Chat</span>
       </div>
     </a>
-    <a href="/ai2/COMET/index" class="menu-bar-button dashboard-button">
+    <a href="/ai2/COMET/index.html" class="menu-bar-button dashboard-button">
       <div class="button-content">
         <img src="assets/dashboard.png" alt="Dashboard" class="button-image">
 		<br>
         <span>Dashboard<span>
       </div>
     </a>
-    <a href="/ai2/COMET/settings" class="menu-bar-button account-button">
+    <a href="/ai2/COMET/settings.html" class="menu-bar-button account-button">
       <div class="button-content">
         <img src="assets/user.png" alt="Account" class="button-image-2">
         <span style="padding-left: 24px;">Account</span>
@@ -182,7 +248,26 @@
 
 <script>
 function save(){
-document.cookie = `apikey2=`+window.btoa(document.getElementById("apikey").value)+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
+if(document.getElementById("apikey2").value) document.cookie = `apikey2=`+window.btoa(document.getElementById("apikey2").value)+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
+if(document.getElementById("apikey3").value) document.cookie = `apikey3=`+window.btoa(document.getElementById("apikey3").value)+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
+if(document.getElementById("apikey4").value) document.cookie = `apikey4=`+window.btoa(document.getElementById("apikey4").value)+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
+document.cookie = `apikeyID=`+$('input[name="radio"]:checked').val()+`; path=/ai2 ; expires=`+new Date(2047,2,28).toUTCString();
 }
+
+
 </script>
+  <script>
+    // Handle radio button selection
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(button => {
+      button.addEventListener('change', function() {
+        const selectedButton = document.querySelector('.radio-button.selected');
+        if (selectedButton) {
+          selectedButton.classList.remove('selected');
+        }
+        const radioContainer = button.parentElement.querySelector('.radio-button');
+        radioContainer.classList.add('selected');
+      });
+    });
+  </script>
 </html>

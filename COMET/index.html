@@ -280,9 +280,10 @@ var database = firebase.database();
 var VARIABLE = {};
 var COUNTER = 0;
 const Dataset = {
-	dataset:["Normal/Score/Best","Normal/Rate/Best","Normal/Combo/Best"],
+	dataset:["Normal/Score/Best","Normal/Rate/Best","Normal/Combo/Best","Normal/Score/Data29","Normal/Rate/Data29","Normal/Combo/Data29"],
 	formula:{
-		"Normal/Combo/Best": ((x)=>{return (Math.floor(x/10)+1)*10})
+		"Normal/Combo/Best": ((x)=>{return (Math.floor(x/10)+1)*10}),
+		"Normal/Combo/Data29": ((x)=>{return (Math.floor(x/10)+1)*10})
 	}
 
 }
@@ -293,7 +294,7 @@ Dataset.dataset.forEach(i=>{
 		console.log(snapshot.val());
 		COUNTER++;
 		VARIABLE[j] = snapshot.val(); //(Dataset.formula[j] ? Dataset.formula[j](snapshot.val()) : snapshot.val() );
-		if (COUNTER==3)wrapper()
+		if (COUNTER==6)wrapper()
 	});
 })
 
@@ -302,9 +303,9 @@ Dataset.dataset.forEach(i=>{
   <script>
     window.addEventListener('DOMContentLoaded', function() {
 
-		$("#overview").hide();
-		$(".statbutton_off").css("background-color","#bb8ef6");
-		$(".statbutton_on").css("background-color","#fff0");
+		$("#details").hide();
+		$(".statbutton_off").css("background-color","#fff0");
+		$(".statbutton_on").css("background-color","#bb8ef6");
 		$(".statbutton_on").click(function(){
 			$(".statbutton_on").css("background-color","#bb8ef6");
 			$(".statbutton_off").css("background-color","#fff0");
@@ -325,7 +326,7 @@ Dataset.dataset.forEach(i=>{
   <script>
   function getAPIKey(){
 	try{
-	return document.cookie.split("apikey2=")[1].split(";")[0]
+	return document.cookie.split("apikey"+document.cookie.split("apikeyID=")[1].split(";")[0]+"=")[1].split(";")[0]
 	
 	}catch(error){
 	console.log(error)
@@ -334,15 +335,23 @@ Dataset.dataset.forEach(i=>{
 
 function wrapper(){
 	console.log(VARIABLE)
-	let s = ["Normal/Score/Best","Normal/Rate/Best","Normal/Combo/Best"].map(w=>VARIABLE[w])
-	s[4] = s[0]/600 > 100 ? 100 : s[0]/600;
-	$(".pie_score").css("--p",s[4])
+	let s = ["Normal/Score/Best","Normal/Rate/Best","Normal/Combo/Best","Normal/Score/Data29","Normal/Rate/Data29","Normal/Combo/Data29"].map(w=>VARIABLE[w])
+	s[6] = s[0]/600 > 100 ? 100 : s[0]/600;
+	$(".pie_score").css("--p",s[6])
 	$(".pie_score").html($(".pie_score").html().replace(/<b>.*<\/b>/,"<b>"+s[0]+"</b>"))
 	$(".pie_combo").css("--p",s[2])
-	$(".pie_combo").html($(".pie_combo").html().replace(/<b>.*<\/b>/,"<b>"+s[2]+"%</b>"))
+	$(".pie_combo").html($(".pie_combo").html().replace(/<b>.*<\/b>/,"<b>"+s[2]+"</b>"))
 	$(".pie_rtime").css("--p",s[1])
 	$(".pie_rtime").html($(".pie_rtime").html().replace(/<b>.*<\/b>/,"<b>"+s[1]+"%</b>"))
 
+
+	s[7] = s[3]/600 > 100 ? 100 : s[3]/600;
+	$(".pie_score29").css("--p",s[7])
+	$(".pie_score29").html($(".pie_score29").html().replace(/<b>.*<\/b>/,"<b>"+s[3]+"</b>"))
+	$(".pie_combo29").css("--p",s[5])
+	$(".pie_combo29").html($(".pie_combo29").html().replace(/<b>.*<\/b>/,"<b>"+s[5]+"</b>"))
+	$(".pie_rtime29").css("--p",s[4])
+	$(".pie_rtime29").html($(".pie_rtime29").html().replace(/<b>.*<\/b>/,"<b>"+s[4]+"%</b>"))
 
 	$.ajax({
 	type:"POST",
@@ -387,11 +396,36 @@ Reaction Time: {#2}%
 <div style="height:30px"><label>  </label></div>
 
 <div class="overview" id="overview">
-	<div class="rectangle-x">
-		<img src="assets/radar.png" alt="Overview" class="rectangle-image">
-		<label class="rectangle-text">Overview</label>
-		<iframe src="chart.html" class="chart-img" scrolling="no" ></iframe>
-	</div>
+<div class="stats section-break">
+  
+  <div class="rectangle-t rectangle-all">
+	<table style="margin: 0 auto;">
+	<tr>
+	<td>
+		<div class="box pie_score29" style="--p:0;--c:#FCD775">
+		<div class="pie_text">
+		  <label>Score<br><br><b>0%</b></label>
+		</div>
+		</div>
+	</td>
+	<td>
+		<div class="box pie_combo29" style="--p:0;--c:#FD7676">
+		<div class="pie_text">
+		  <label>Combo<br><br><b>0</b></label>
+		</div>
+		</div>
+	</td>
+	<td>
+		<div class="box pie_rtime29" style="--p:0;--c:#9CF491">
+		<div class="pie_text">
+		  <label>Reaction<br>Time<br><b>0%</b></label>
+		</div>
+		</div>
+	</td>
+	</tr>
+	</table>
+	</div></div>
+	
 </div>
 
 <div class="details" id="details">
@@ -401,23 +435,23 @@ Reaction Time: {#2}%
 	<table style="margin: 0 auto;">
 	<tr>
 	<td>
-		<div class="box pie_score" style="--p:51;--c:#FCD775">
+		<div class="box pie_score" style="--p:0;--c:#FCD775">
 		<div class="pie_text">
-		  <label>Score<br><br><b>51%</b></label>
+		  <label>Score<br><br><b>0%</b></label>
 		</div>
 		</div>
 	</td>
 	<td>
-		<div class="box pie_combo" style="--p:90;--c:#FD7676">
+		<div class="box pie_combo" style="--p:0;--c:#FD7676">
 		<div class="pie_text">
-		  <label>Combo<br><br><b>90%</b></label>
+		  <label>Combo<br><br><b>0</b></label>
 		</div>
 		</div>
 	</td>
 	<td>
-		<div class="box pie_rtime" style="--p:100;--c:#9CF491">
+		<div class="box pie_rtime" style="--p:0;--c:#9CF491">
 		<div class="pie_text">
-		  <label>Reaction<br>Time<br><b>100%</b></label>
+		  <label>Reaction<br>Time<br><b>0%</b></label>
 		</div>
 		</div>
 	</td>
