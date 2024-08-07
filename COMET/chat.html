@@ -312,17 +312,19 @@ function submit(){
 	
 	if(OPTIONAL)for (w in keywords){
 		if($("#input_text").val().toLowerCase().includes(keywords[w])){
-			add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/COMET/question'>https://336699c.github.io/ai2/COMET/question</a>",false);
+			//add("Please complete Emotion Analysis:<br><a href='https://336699c.github.io/ai2/COMET/question'>https://336699c.github.io/ai2/COMET/question</a>",false);
 			OPTIONAL=false;
 			break;
 		}
 		if($("#input_text").val().toLowerCase().includes("stat")){
 			add("Firstly, your combo and susccess rate still isn't perfect, next time when you play the game, try focusing more on the projectiles.<br>Secondly, practice makes perfect, keep playing and don't lose motivation. Also remember to take breaks regularly and rehydrate.",false);
+			console.log($("#input_text").val());
 			break;
 			
 		}
 		if($("#input_text").val().toLowerCase().includes("health")){
 			add("Do not overwork yourself and remember to rest. Consider eating less unhealthy foods like fries. Don;t hesistate to ask for help from friends, family or professionals.",false);
+			console.log($("#input_text").val());
 			break;
 			
 		}
